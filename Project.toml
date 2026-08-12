@@ -10,4 +10,4 @@ Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
 
 [sources]
-Octopus = {url = "https://github.com/xud929/Octopus.jl", rev = "c3f80f005b55dc314ade1b8980612c08db82d232"}
+Octopus = {url = "https://github.com/xud929/Octopus.jl", rev = "paper-cpc"}

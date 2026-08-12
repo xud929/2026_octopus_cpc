@@ -32,10 +32,12 @@ outputs are archived here.
 
 ## Octopus pin
 
-Every dataset in `data/` was produced at or before Octopus commit
-`c3f80f005b55dc314ade1b8980612c08db82d232`
-(the migration commit; per-dataset provenance below and in the Octopus audit
-records). `Project.toml` pins that commit for the drivers:
+Octopus's `paper-cpc` branch is the dedicated line for this paper:
+regenerated datasets are produced on it, and `Project.toml` tracks it. The
+archived datasets currently carry two generations — the submission-era data
+(audit-corrected, produced at or before Octopus `c3f80f0`) and, as the
+regeneration campaign proceeds (see `REGENERATION.md`), revision-era data
+produced on `paper-cpc`, each recording its exact commit:
 
 ```bash
 julia --project=. -e 'using Pkg; Pkg.instantiate()'   # once Octopus.jl is public
