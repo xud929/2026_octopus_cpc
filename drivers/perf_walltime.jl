@@ -57,8 +57,20 @@ const WORK = get(ENV, "PERF_WORK", joinpath(ROOT, "work", "perf"))
 const OUT = get(ENV, "PERF_OUT", joinpath(ROOT, "data", "gpu_walltime_table.tsv"))
 mkpath(WORK)
 
-busy = read(`nvidia-smi --query-compute-apps=pid --format=csv,noheader`, String)
-isempty(strip(busy)) || error("GPU busy (compute pids: $(strip(busy))); measure on an idle device")
+# The submitted campaign tolerated an IDLE foreign CUDA context (documented
+# in the manuscript: ~3.29 GiB, zero utilization). Reproduce that condition:
+# abort only if the device shows actual activity; otherwise record the
+# ambient contexts in the output header.
+ambient = strip(read(`nvidia-smi --query-compute-apps=pid,used_memory --format=csv,noheader`, String))
+utils = Int[]
+for _ in 1:3
+    push!(utils, parse(Int, strip(read(
+        `nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits`, String))))
+    sleep(2)
+end
+maximum(utils) <= 5 || error(
+    "GPU active (utilization sample $(utils)%; compute apps: $(ambient)); " *
+    "measure on a quiet device")
 
 device_name = strip(read(`nvidia-smi --query-gpu=name --format=csv,noheader`, String))
 driver_ver = strip(read(`nvidia-smi --query-gpu=driver_version --format=csv,noheader`, String))
@@ -114,6 +126,8 @@ open(OUT, "w") do io
     println(io, "# Octopus commit $(COMMIT)")
     println(io, "# device: $(device_name), driver $(driver_ver)")
     println(io, "# julia: $(VERSION)")
+    println(io, "# ambient idle CUDA contexts during measurement (pid, memory): ",
+            isempty(ambient) ? "none" : replace(ambient, '\n' => "; "))
     println(io, "config\ttotal_particles\tmesh\tprocesses\tmean_s_per_turn\tsd_s_per_turn\tprocess_medians")
     for r in results
         total = r.cfg.ele + r.cfg.pro
