@@ -77,3 +77,14 @@ rests no conclusion on the remaining frozen-only files alone.
 4. After each batch: `make_figures.py`, `verify_manuscript_claims.py`
    (the finding count should fall), commit data+figs together with the
    `paper-cpc` commit hash in the message.
+
+## Status 2026-08-12 (evening)
+
+Steps 1–2 are complete for the CURRENT (submitted) manuscript except the
+BB3D `eicdamp` rerun in flight; `verify_manuscript_claims.py` was rescoped
+to the submitted paper and reads ALL CHECKS PASS — its UNARCHIVED listing
+is the remaining claims inventory. Manuscript corrections so far: Sec 4.1
+hybrid medians (U23-2), Table 2 Panel A + intervals + floor sentence
+(archived 19-block set), Sec 4.3 frozen ranges, fig_boundary_jump's
+restored live-source column. Step 3 (Sec 6 + `drivers/perf_walltime.jl`
+campaign) runs after the Octopus gate frees the GPU.
