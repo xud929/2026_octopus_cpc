@@ -14,10 +14,14 @@ git_output(args...) = strip(read(`git -C $OCTOPUS_ROOT $(args)`, String))
 const OCTOPUS_COMMIT = git_output("rev-parse", "HEAD")
 const OCTOPUS_TREE = git_output("rev-parse", "HEAD^{tree}")
 const OCTOPUS_STATUS = git_output("status", "--porcelain=v1")
-OCTOPUS_COMMIT == "c6c7a989a1bd234b54d1613b43db911a0e652720" ||
-    error("unexpected Octopus commit")
-OCTOPUS_TREE == "a33b153e7794a7567d21d9041bbc75545b1d6822" ||
-    error("unexpected Octopus tree")
+# Provenance guard: the caller must state which Octopus commit it expects
+# (the frozen supplement hardcoded c6c7a98; regeneration runs pin paper-cpc
+# commits instead). The commit is also recorded in the output metadata.
+const EXPECTED_COMMIT = get(ENV, "OCTOPUS_EXPECTED_COMMIT") do
+    error("set OCTOPUS_EXPECTED_COMMIT to the full hash the run should use")
+end
+OCTOPUS_COMMIT == EXPECTED_COMMIT ||
+    error("unexpected Octopus commit: HEAD=$OCTOPUS_COMMIT expected=$EXPECTED_COMMIT")
 isempty(OCTOPUS_STATUS) || error("Octopus checkout must be clean")
 
 function parse_args(args)
@@ -52,7 +56,9 @@ device = parse(Int, get(args, "device", "0"))
 turns > 0 || error("turns must be positive")
 n_macro > 0 || error("n-macro must be positive")
 grid_n >= 5 || error("grid must be at least 5")
-offset_sigma > 0 || error("offset-sigma must be positive")
+# zero is legal: the noise arm of the multislice figure excites the spectrum
+# purely by macroparticle shot noise, with no initial centroid offset
+offset_sigma >= 0 || error("offset-sigma must be nonnegative")
 
 include(joinpath(OCTOPUS_ROOT, "src", "Octopus.jl"))
 using .Octopus
