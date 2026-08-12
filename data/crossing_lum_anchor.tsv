@@ -3,8 +3,11 @@
 # 2e5 macroparticles/beam, npart=1e8 (beam-beam negligible), 3 turns each, CIC 128^2 IGF
 # phi_Piwinski = tan(12.5e-3)*0.02/100e-6 = 2.5
 # R_analytic_continuum = 0.37137 ; R_discrete_15slice = 0.36926
+# MACHINE-GENERATED from the script's printed per-turn values (2026-08-12,
+# Octopus paper-cpc 3159631) — replaces the hand transcription whose headon
+# mean carried a fifth-digit typo (7.94273 for 7.94293; U21-12 gap closed).
 config	mean_luminosity_per_turn
-headon	7.94273e22
-crossing_12.5mrad_nocrab	2.95435e22
-crossing_12.5mrad_idealcrab	7.94294e22
-# ratios: no-crab/headon = 0.37195 (+0.16% vs continuum); crab/headon = 1.00003
+headon	7.94293e+22
+crossing_12.5mrad_nocrab	2.95435e+22
+crossing_12.5mrad_idealcrab	7.94294e+22
+# ratios: no-crab/headon = 0.37195 (+0.16% vs continuum); crab/headon = 1.00000
