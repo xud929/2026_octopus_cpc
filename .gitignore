@@ -3,3 +3,4 @@ figs/.DS_Store
 manuscript/*.log
 Manifest.toml
 work/
+.ipynb_checkpoints/
