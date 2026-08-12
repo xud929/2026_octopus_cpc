@@ -13,8 +13,16 @@ results.
   (copied from the frozen submission snapshot; that snapshot, with its own
   `SHA256SUMS`, remains the archival record of what the journal received).
 - `data/` — the frozen, audit-corrected records behind every figure and
-  table (nine figures, six tables). This supersedes the earlier
-  five-figure supplement packaged with the submission.
+  table. NOTE (2026-08-12): the provenance section below and
+  `make_figures.py` describe NINE figures "as in the manuscript" — but no
+  manuscript with nine figures exists; both the submitted tex and the
+  working draft carry the same FIVE (noise floor, boundary jump, coherent
+  FFT, multislice spectra, EIC emittance). The four extra figures
+  (error-vs-grid, error-vs-aspect, Yokoya scans, EIC modes) are audit-era
+  expanded-draft candidates: their data and PDFs are real and verified,
+  their manuscript is not yet written. A matching share of
+  `verify_manuscript_claims.py`'s findings are claims for that expanded
+  draft rather than corrections to the current one.
 - `figs/` — the archived figure PDFs; regenerate with `make_figures.py`.
 - `make_figures.py` — rebuilds all nine manuscript figures from `data/`
   offline (matplotlib only, no network, no absolute paths).
