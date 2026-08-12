@@ -47,7 +47,7 @@ those last, after deciding how Sec. 6 is rewritten.
 | `eic_emittance_octopus.tsv` (Table 3, Fig. 8) | Octopus `validation/eic_emittance_benchmark.jl` | this machine, hours | BB3D side stays frozen unless BeamBeam3D is rerun |
 | `emit_xcode_*.tsv`, centroid overlays | Octopus `validation/emit_xcode.jl` | this machine | |
 | `crossing_lum_anchor.tsv` (Sec. 5.5) | Octopus `validation/crossing_luminosity_anchor.jl` | CPU | hand-transcribed from `.lum` outputs (U21-12) — keep the transcript |
-| `softgauss_count_scan.tsv`, `lambda_tuneswap_control.tsv`, `stationarity_*.tsv` | **generator not identified in the archived README** | — | owner to identify or mark frozen |
+| `softgauss_count_scan.tsv`, `lambda_tuneswap_control.tsv`, `stationarity_*.tsv`, `multislice_centroids_octopus_*.tsv` (Fig. 7 Octopus side) | **generator not identified in the archived README or the tree** | — | owner to identify or mark frozen; the Fig. 7 BB3D side reruns fine |
 
 ## Frozen without a driver (documented gaps — cannot be regenerated)
 
