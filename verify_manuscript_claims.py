@@ -383,8 +383,9 @@ def check_timing():
                           "the 2026-08-11 performance work; re-measure on "
                           "paper-cpc and commit as data/gpu_walltime_table.tsv")
         return
+    # columns: config total_particles mesh processes mean sd process_medians
     for r in read_tsv(path)[1:]:
-        want(f"${float(r[-2]):.4f}\\pm{float(r[-1]):.4f}$",
+        want(f"${float(r[4]):.4f}\\pm{float(r[5]):.4f}$",
              f"timing row {r[0]}")
 
 

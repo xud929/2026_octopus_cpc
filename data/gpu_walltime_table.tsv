@@ -1,0 +1,16 @@
+# Measured GPU wall time per turn, EIC crab-crossing production case,
+# luminosity output every turn + two HDF5 moment observers (capacity 64:
+# exactly one flush inside each measured window).
+# Per process: 120 turns, median over turns 21..120
+# (first 20 are warm-up). Entry = mean +- sample SD across
+# independent process medians (5 nominal, 3 others).
+# Octopus commit 01e97c58afcacec46a337284c2799a1571dccb23
+# device: NVIDIA RTX 4500 Ada Generation, driver 580.119.02
+# julia: 1.12.4
+# ambient idle CUDA contexts during measurement (pid, memory): 2938479, 3290 MiB
+config	total_particles	mesh	processes	mean_s_per_turn	sd_s_per_turn	process_medians
+half_pop	1.79e+06	128	3	0.2048	0.0009	0.2055,0.2037,0.2051
+nominal_mesh64	3.58e+06	64	3	0.2612	0.0007	0.2606,0.2620,0.2609
+nominal	3.58e+06	128	5	0.3067	0.0070	0.3124,0.2989,0.3116,0.3113,0.2991
+nominal_mesh256	3.58e+06	256	3	0.5106	0.0019	0.5128,0.5091,0.5100
+double_pop	7.17e+06	128	3	0.4786	0.0093	0.4733,0.4893,0.4731

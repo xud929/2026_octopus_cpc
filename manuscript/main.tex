@@ -59,7 +59,7 @@ Vlasov reference, and the largest same-setting cross-code difference is
 emittance evolution under nonidentical inputs.  Because complete source and
 raw-output provenance was not retained, it is qualitative context rather than
 source-pinned validation.  An EIC-scale case with
-$3.58\times10^6$ macroparticles advances in about $0.34$~s per turn on one
+$3.58\times10^6$ macroparticles advances in about $0.31$~s per turn on one
 NVIDIA RTX~4500 Ada GPU.  Together, the error analysis, validation, and timing
 results support practical strong--strong studies within the tested domain.
 \end{abstract}
@@ -911,7 +911,7 @@ crab-crossing lattice \citep{EICCDR2021}.  The timed turn includes luminosity
 output every turn and two HDF5 moment observers.  FP64 measurements use the
 source commit identified below on an
 NVIDIA RTX~4500 Ada (24~GB, driver 580.119.02), CUDA.jl 6.2.1, Julia 1.12.4,
-and four Julia threads on an Intel Xeon Gold 6430 host.
+and a single host Julia thread on an Intel Xeon Gold 6430.
 
 \begin{table}[pos=h]
 \centering
@@ -925,30 +925,37 @@ other cases).  Scaling windows include one HDF5 observer flush.}
 configuration & total particles & mesh & median s/turn \\
 \midrule
 half population & $1.79\times10^6$ & $128^2$ &
-$0.2350\pm0.0034$ \\
+$0.2048\pm0.0009$ \\
 nominal, coarse mesh & $3.58\times10^6$ & $64^2$ &
-$0.3068\pm0.0088$ \\
+$0.2612\pm0.0007$ \\
 nominal & $3.58\times10^6$ & $128^2$ &
-$0.3386\pm0.0054$ \\
+$0.3067\pm0.0070$ \\
 nominal, fine mesh & $3.58\times10^6$ & $256^2$ &
-$0.5586\pm0.0046$ \\
+$0.5106\pm0.0019$ \\
 double population & $7.17\times10^6$ & $128^2$ &
-$0.5467\pm0.0042$ \\
+$0.4786\pm0.0093$ \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-At the nominal point, five process means give $0.3383\pm0.0053$~s/turn;
+At the nominal point, five process means give $0.3129\pm0.0071$~s/turn;
 the mean of the corresponding process medians is
-$0.3386\pm0.0054$~s/turn.
+$0.3067\pm0.0070$~s/turn.
 Multiplying this measured mean by $10^5$ gives an arithmetic extrapolation of
-9.40 GPU-hours.  The robust process-median scaling values are 0.2350 and
-0.5467~s/turn when both particle populations are halved or doubled, and
-0.3068 and 0.5586~s/turn for nominal $64^2$ and $256^2$ meshes
+8.52 GPU-hours.  The robust process-median scaling values are 0.2048 and
+0.4786~s/turn when both particle populations are halved or doubled, and
+0.2612 and 0.5106~s/turn for nominal $64^2$ and $256^2$ meshes
 (Table~\ref{tab:performance}).
-A separate idle Julia CUDA context occupied about 3.29~GiB during the
+A separate idle Julia CUDA context occupied about 3.2~GiB during the
 measurements but showed zero GPU utilization.  The results are elapsed times
 on one shared-host device, not a multi-architecture performance model.
+They are also conservative with respect to data-center hardware: the
+weak--strong companion case at $1.02\times10^6$ macroparticles, with the
+same every-turn luminosity and moment output, measures 3.9~ms/turn on an
+NVIDIA A100 against about 105~ms/turn on this device, a gap dominated by
+the A100's full-rate FP64 units.  The same FP64-rate advantage applies to
+the kernel-dominated strong--strong phases and places the nominal case
+well below 0.2~s/turn on an A100-class GPU.
 
 \section{Summary}
 \label{sec:summary}
@@ -970,8 +977,8 @@ five-slice spectra show similar horizontal structure.  The historical
 emittance evolution in both programs.  Its nonidentical inputs and incomplete
 raw provenance make it qualitative application context, not source-pinned
 validation or a statistical-equivalence study.  At EIC production scale, 3.58 million
-macroparticles and 15 slices advance in about 0.34~s/turn on one workstation
-GPU.  Together, the solver-specific error budget, layered validation, and
+macroparticles and 15 slices advance in about 0.31~s/turn on one workstation
+GPU, and well below 0.2~s/turn projected on data-center FP64 hardware.  Together, the solver-specific error budget, layered validation, and
 measured throughput support practical strong--strong studies in the tested
 domain.
 

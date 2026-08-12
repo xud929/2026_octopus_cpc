@@ -1,0 +1,255 @@
+\begin{thebibliography}{32}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\providecommand{\bibinfo}[2]{#2}
+\ifx\xfnm\relax \def\xfnm[#1]{\unskip,\space#1}\fi
+%Type = Article
+\bibitem[{Hirata et~al.(1993)Hirata, Moshammer, and
+  Ruggiero}]{HirataMoshammerRuggiero1993}
+\bibinfo{author}{K.~Hirata}, \bibinfo{author}{H.~Moshammer},
+  \bibinfo{author}{F.~Ruggiero},
+\newblock \bibinfo{title}{A symplectic beam-beam interaction with energy
+  change},
+\newblock \bibinfo{journal}{Part. Accel.} \bibinfo{volume}{40}
+  (\bibinfo{year}{1993}) \bibinfo{pages}{205--228}.
+%Type = Article
+\bibitem[{Ohmi(2000)}]{Ohmi2000}
+\bibinfo{author}{K.~Ohmi},
+\newblock \bibinfo{title}{Simulation of beam-beam effects in a circular
+  $e^+e^-$ collider},
+\newblock \bibinfo{journal}{Phys. Rev. E} \bibinfo{volume}{62}
+  (\bibinfo{year}{2000}) \bibinfo{pages}{7287--7294}.
+%Type = Article
+\bibitem[{Qiang et~al.(2004)Qiang, Furman, and Ryne}]{Qiang2004BeamBeam3D}
+\bibinfo{author}{J.~Qiang}, \bibinfo{author}{M.~A. Furman},
+  \bibinfo{author}{R.~D. Ryne},
+\newblock \bibinfo{title}{A parallel particle-in-cell model for beam-beam
+  interaction in high energy ring colliders},
+\newblock \bibinfo{journal}{J. Comput. Phys.} \bibinfo{volume}{198}
+  (\bibinfo{year}{2004}) \bibinfo{pages}{278--294}.
+%Type = Article
+\bibitem[{Qiang et~al.(2002)Qiang, Furman, and Ryne}]{QiangGreen2002}
+\bibinfo{author}{J.~Qiang}, \bibinfo{author}{M.~A. Furman},
+  \bibinfo{author}{R.~D. Ryne},
+\newblock \bibinfo{title}{Strong-strong beam-beam simulation using a {G}reen
+  function approach},
+\newblock \bibinfo{journal}{Phys. Rev. ST Accel. Beams} \bibinfo{volume}{5}
+  (\bibinfo{year}{2002}) \bibinfo{pages}{104402}.
+%Type = Article
+\bibitem[{Ohmi et~al.(2004)Ohmi, Tawada, Cai, Kamada, Oide, and
+  Qiang}]{OhmiTawadaEtAl2004}
+\bibinfo{author}{K.~Ohmi}, \bibinfo{author}{M.~Tawada},
+  \bibinfo{author}{Y.~Cai}, \bibinfo{author}{S.~Kamada},
+  \bibinfo{author}{K.~Oide}, \bibinfo{author}{J.~Qiang},
+\newblock \bibinfo{title}{Luminosity limit due to the beam-beam interactions
+  with or without crossing angle},
+\newblock \bibinfo{journal}{Phys. Rev. ST Accel. Beams} \bibinfo{volume}{7}
+  (\bibinfo{year}{2004}) \bibinfo{pages}{104401}.
+%Type = Article
+\bibitem[{Stern et~al.(2010)Stern, Amundson, Spentzouris, and
+  Valishev}]{Stern2010}
+\bibinfo{author}{E.~Stern}, \bibinfo{author}{J.~Amundson},
+  \bibinfo{author}{P.~Spentzouris}, \bibinfo{author}{A.~Valishev},
+\newblock \bibinfo{title}{Fully 3d multiple beam dynamics processes simulation
+  for the {F}ermilab {T}evatron},
+\newblock \bibinfo{journal}{Phys. Rev. ST Accel. Beams} \bibinfo{volume}{13}
+  (\bibinfo{year}{2010}) \bibinfo{pages}{024401}.
+%Type = Inproceedings
+\bibitem[{Herr and Pieloni(2014)}]{HerrPieloni2014}
+\bibinfo{author}{W.~Herr}, \bibinfo{author}{T.~Pieloni},
+\newblock \bibinfo{title}{Beam-beam effects},
+\newblock in: \bibinfo{booktitle}{Proceedings of the CAS-CERN Accelerator
+  School: Advanced Accelerator Physics, Trondheim, Norway},
+  \bibinfo{year}{2014}, pp. \bibinfo{pages}{431--459}.
+  \bibinfo{note}{{CERN-2014-009}}.
+%Type = Article
+\bibitem[{Qiang and Blaskiewicz(2024)}]{QiangBlaskiewicz2024}
+\bibinfo{author}{J.~Qiang}, \bibinfo{author}{M.~Blaskiewicz},
+\newblock \bibinfo{title}{Strong-strong simulations of combined beam-beam and
+  wakefield effects in the {E}lectron-{I}on-{C}ollider},
+\newblock \bibinfo{journal}{Nucl. Instrum. Methods Phys. Res., Sect. A}
+  \bibinfo{volume}{1069} (\bibinfo{year}{2024}) \bibinfo{pages}{169942}.
+%Type = Article
+\bibitem[{Bezanson et~al.(2017)Bezanson, Edelman, Karpinski, and
+  Shah}]{BezansonJulia2017}
+\bibinfo{author}{J.~Bezanson}, \bibinfo{author}{A.~Edelman},
+  \bibinfo{author}{S.~Karpinski}, \bibinfo{author}{V.~B. Shah},
+\newblock \bibinfo{title}{Julia: A fresh approach to numerical computing},
+\newblock \bibinfo{journal}{SIAM Rev.} \bibinfo{volume}{59}
+  (\bibinfo{year}{2017}) \bibinfo{pages}{65--98}.
+%Type = Article
+\bibitem[{Besard et~al.(2019)Besard, Foket, and {De Sutter}}]{BesardCUDAjl2019}
+\bibinfo{author}{T.~Besard}, \bibinfo{author}{C.~Foket},
+  \bibinfo{author}{B.~{De Sutter}},
+\newblock \bibinfo{title}{Effective extensible programming: Unleashing {J}ulia
+  on {GPU}s},
+\newblock \bibinfo{journal}{IEEE Trans. Parallel Distrib. Syst.}
+  \bibinfo{volume}{30} (\bibinfo{year}{2019}) \bibinfo{pages}{827--841}.
+%Type = Article
+\bibitem[{Cai et~al.(2001)Cai, Chao, Tzenov, and Tajima}]{CaiReducedMesh2001}
+\bibinfo{author}{Y.~Cai}, \bibinfo{author}{A.~W. Chao}, \bibinfo{author}{S.~I.
+  Tzenov}, \bibinfo{author}{T.~Tajima},
+\newblock \bibinfo{title}{Simulation of the beam-beam effects in $e^+e^-$
+  storage rings with a method of reducing the region of mesh},
+\newblock \bibinfo{journal}{Phys. Rev. ST Accel. Beams} \bibinfo{volume}{4}
+  (\bibinfo{year}{2001}) \bibinfo{pages}{011001}.
+%Type = Article
+\bibitem[{Koga and Tajima(1995)}]{KogaTajima1995}
+\bibinfo{author}{J.~K. Koga}, \bibinfo{author}{T.~Tajima},
+\newblock \bibinfo{title}{The {$\delta f$} algorithm for beam dynamics},
+\newblock \bibinfo{journal}{J. Comput. Phys.} \bibinfo{volume}{116}
+  (\bibinfo{year}{1995}) \bibinfo{pages}{314--329}.
+%Type = Misc
+\bibitem[{Cai et~al.(2000)Cai, Chao, Tzenov, and Tajima}]{CaiDeltaf2000}
+\bibinfo{author}{Y.~Cai}, \bibinfo{author}{A.~W. Chao}, \bibinfo{author}{S.~I.
+  Tzenov}, \bibinfo{author}{T.~Tajima}, \bibinfo{title}{Nonlinear $\delta f$
+  method for beam-beam simulation}, \bibinfo{year}{2000}.
+  \bibinfo{note}{{SLAC}-PUB-8676, arXiv:physics/0010055}.
+%Type = Inproceedings
+\bibitem[{Ohmi et~al.(2003)Ohmi, Tawada, and Oide}]{OhmiTawadaOide2003}
+\bibinfo{author}{K.~Ohmi}, \bibinfo{author}{M.~Tawada},
+  \bibinfo{author}{K.~Oide},
+\newblock \bibinfo{title}{Study of beam-beam interactions with/without crossing
+  angle},
+\newblock in: \bibinfo{booktitle}{Proceedings of the 2003 Particle Accelerator
+  Conference}, \bibinfo{publisher}{IEEE}, \bibinfo{address}{Portland, OR},
+  \bibinfo{year}{2003}, pp. \bibinfo{pages}{353--355}. \bibinfo{note}{Paper
+  WOAA005}.
+%Type = Inproceedings
+\bibitem[{Kabel and Cai(2004)}]{KabelCai2004}
+\bibinfo{author}{A.~C. Kabel}, \bibinfo{author}{Y.~Cai},
+\newblock \bibinfo{title}{A multi-bunch, three-dimensional, strong-strong
+  beam-beam simulation code for parallel computers},
+\newblock in: \bibinfo{booktitle}{Proceedings of the 9th European Particle
+  Accelerator Conference (EPAC 2004)}, \bibinfo{address}{Lucerne, Switzerland},
+  \bibinfo{year}{2004}, pp. \bibinfo{pages}{509--511}. \bibinfo{note}{Paper
+  MOPKF082; SLAC-PUB-11188}.
+%Type = Techreport
+\bibitem[{Bassetti and Erskine(1980)}]{BassettiErskine1980}
+\bibinfo{author}{M.~Bassetti}, \bibinfo{author}{G.~A. Erskine},
+  \bibinfo{title}{Closed expression for the electrical field of a
+  two-dimensional {G}aussian charge}, \bibinfo{type}{Technical Report}
+  \bibinfo{number}{CERN-ISR-TH/80-06}, CERN, \bibinfo{address}{Geneva},
+  \bibinfo{year}{1980}.
+%Type = Article
+\bibitem[{Leunissen et~al.(2000)Leunissen, Schmidt, and
+  Ripken}]{LeunissenSchmidtRipken2000}
+\bibinfo{author}{L.~H.~A. Leunissen}, \bibinfo{author}{F.~Schmidt},
+  \bibinfo{author}{G.~Ripken},
+\newblock \bibinfo{title}{Six-dimensional beam-beam kick including coupled
+  motion},
+\newblock \bibinfo{journal}{Phys. Rev. ST Accel. Beams} \bibinfo{volume}{3}
+  (\bibinfo{year}{2000}) \bibinfo{pages}{124002}.
+%Type = Article
+\bibitem[{Hirata(1995)}]{Hirata1995}
+\bibinfo{author}{K.~Hirata},
+\newblock \bibinfo{title}{Analysis of beam-beam interactions with a large
+  crossing angle},
+\newblock \bibinfo{journal}{Phys. Rev. Lett.} \bibinfo{volume}{74}
+  (\bibinfo{year}{1995}) \bibinfo{pages}{2228--2231}.
+%Type = Inproceedings
+\bibitem[{Salmon et~al.(2011)Salmon, Moraes, Dror, and Shaw}]{Salmon2011}
+\bibinfo{author}{J.~K. Salmon}, \bibinfo{author}{M.~A. Moraes},
+  \bibinfo{author}{R.~O. Dror}, \bibinfo{author}{D.~E. Shaw},
+\newblock \bibinfo{title}{Parallel random numbers: as easy as 1, 2, 3},
+\newblock in: \bibinfo{booktitle}{Proceedings of the 2011 International
+  Conference for High Performance Computing, Networking, Storage and Analysis
+  (SC'11)}, \bibinfo{year}{2011}, pp. \bibinfo{pages}{16:1--16:12}.
+%Type = Article
+\bibitem[{Xu et~al.(2021)Xu, Hao, Luo, and Qiang}]{XuCrab2021}
+\bibinfo{author}{D.~Xu}, \bibinfo{author}{Y.~Hao}, \bibinfo{author}{Y.~Luo},
+  \bibinfo{author}{J.~Qiang},
+\newblock \bibinfo{title}{Synchrobetatron resonance of crab crossing scheme
+  with large crossing angle and finite bunch length},
+\newblock \bibinfo{journal}{Phys. Rev. Accel. Beams} \bibinfo{volume}{24}
+  (\bibinfo{year}{2021}) \bibinfo{pages}{041002}.
+%Type = Article
+\bibitem[{Xu et~al.(2024)Xu, Morozov, Sagan, Hao, and Luo}]{XuBB2024}
+\bibinfo{author}{D.~Xu}, \bibinfo{author}{V.~S. Morozov},
+  \bibinfo{author}{D.~Sagan}, \bibinfo{author}{Y.~Hao},
+  \bibinfo{author}{Y.~Luo},
+\newblock \bibinfo{title}{Enhanced beam-beam modeling to include longitudinal
+  variation during weak-strong simulation},
+\newblock \bibinfo{journal}{Phys. Rev. Accel. Beams} \bibinfo{volume}{27}
+  (\bibinfo{year}{2024}) \bibinfo{pages}{061002}.
+%Type = Book
+\bibitem[{Hockney and Eastwood(1988)}]{HockneyEastwood1988}
+\bibinfo{author}{R.~W. Hockney}, \bibinfo{author}{J.~W. Eastwood},
+  \bibinfo{title}{Computer Simulation Using Particles},
+  \bibinfo{publisher}{Adam Hilger}, \bibinfo{address}{Bristol},
+  \bibinfo{year}{1988}.
+%Type = Article
+\bibitem[{Qiang et~al.(2006)Qiang, Lidia, Ryne, and
+  Limborg-Deprey}]{QiangIGF2006}
+\bibinfo{author}{J.~Qiang}, \bibinfo{author}{S.~Lidia}, \bibinfo{author}{R.~D.
+  Ryne}, \bibinfo{author}{C.~Limborg-Deprey},
+\newblock \bibinfo{title}{Three-dimensional quasistatic model for high
+  brightness beam dynamics simulation},
+\newblock \bibinfo{journal}{Phys. Rev. ST Accel. Beams} \bibinfo{volume}{9}
+  (\bibinfo{year}{2006}) \bibinfo{pages}{044204}.
+%Type = Article
+\bibitem[{Meller and Siemann(1981)}]{MellerSiemann1981}
+\bibinfo{author}{R.~E. Meller}, \bibinfo{author}{R.~H. Siemann},
+\newblock \bibinfo{title}{Coherent normal modes of colliding beams},
+\newblock \bibinfo{journal}{IEEE Trans. Nucl. Sci.} \bibinfo{volume}{NS-28}
+  (\bibinfo{year}{1981}) \bibinfo{pages}{2431--2433}.
+%Type = Article
+\bibitem[{Yokoya and Koiso(1990)}]{YokoyaKoiso1990}
+\bibinfo{author}{K.~Yokoya}, \bibinfo{author}{H.~Koiso},
+\newblock \bibinfo{title}{Tune shift of coherent beam-beam oscillations},
+\newblock \bibinfo{journal}{Part. Accel.} \bibinfo{volume}{27}
+  (\bibinfo{year}{1990}) \bibinfo{pages}{181--186}.
+%Type = Article
+\bibitem[{Alexahin(2002)}]{Alexahin2002}
+\bibinfo{author}{Y.~Alexahin},
+\newblock \bibinfo{title}{A study of the coherent beam-beam effect in the
+  framework of the {V}lasov perturbation theory},
+\newblock \bibinfo{journal}{Nucl. Instrum. Methods Phys. Res., Sect. A}
+  \bibinfo{volume}{480} (\bibinfo{year}{2002}) \bibinfo{pages}{253--288}.
+%Type = Article
+\bibitem[{Yokoya(2000)}]{Yokoya2000}
+\bibinfo{author}{K.~Yokoya},
+\newblock \bibinfo{title}{Limitation of the {G}aussian approximation in
+  beam-beam simulations},
+\newblock \bibinfo{journal}{Phys. Rev. ST Accel. Beams} \bibinfo{volume}{3}
+  (\bibinfo{year}{2000}) \bibinfo{pages}{124401}.
+%Type = Inproceedings
+\bibitem[{Herr and Muratori(2006)}]{HerrMuratori2006}
+\bibinfo{author}{W.~Herr}, \bibinfo{author}{B.~Muratori},
+\newblock \bibinfo{title}{Concept of luminosity},
+\newblock in: \bibinfo{booktitle}{CERN Accelerator School: Intermediate Course
+  on Accelerator Physics}, \bibinfo{number}{CERN-2006-002},
+  \bibinfo{publisher}{CERN}, \bibinfo{address}{Geneva}, \bibinfo{year}{2006},
+  pp. \bibinfo{pages}{361--377}.
+%Type = Techreport
+\bibitem[{Willeke et~al.(2021)Willeke, Beebe-Wang et~al.}]{EICCDR2021}
+\bibinfo{author}{F.~Willeke}, \bibinfo{author}{J.~Beebe-Wang}, et~al.,
+  \bibinfo{title}{Electron Ion Collider Conceptual Design Report 2021},
+  \bibinfo{type}{Technical Report} \bibinfo{number}{BNL-221006-2021-FORE},
+  Brookhaven National Laboratory, \bibinfo{year}{2021}.
+%Type = Article
+\bibitem[{Ohmi et~al.(2017)Ohmi, Kuroo, Oide, Zhou, and
+  Zimmermann}]{OhmiCrossing2017}
+\bibinfo{author}{K.~Ohmi}, \bibinfo{author}{N.~Kuroo},
+  \bibinfo{author}{K.~Oide}, \bibinfo{author}{D.~Zhou},
+  \bibinfo{author}{F.~Zimmermann},
+\newblock \bibinfo{title}{Coherent beam-beam instability in collisions with a
+  large crossing angle},
+\newblock \bibinfo{journal}{Phys. Rev. Lett.} \bibinfo{volume}{119}
+  (\bibinfo{year}{2017}) \bibinfo{pages}{134801}.
+%Type = Misc
+\bibitem[{Xu(2026)}]{OctopusSoftware2026}
+\bibinfo{author}{D.~Xu}, \bibinfo{title}{{Octopus.jl}: Gpu-oriented
+  strong--strong beam--beam simulation framework},
+  \bibinfo{howpublished}{Computer software, GitHub repository},
+  \bibinfo{year}{2026}. \bibinfo{note}{Version: commit
+  c6c7a989a1bd234b54d1613b43db911a0e652720, 31 July 2026.
+  \url{https://github.com/xud929/Octopus.jl}}.
+%Type = Misc
+\bibitem[{Qiang(2024)}]{BeamBeam3DSoftware2024}
+\bibinfo{author}{J.~Qiang}, \bibinfo{title}{{BeamBeam3D}: three-dimensional
+  parallel particle-in-cell beam--beam code}, \bibinfo{howpublished}{Computer
+  software, GitHub repository}, \bibinfo{year}{2024}. \bibinfo{note}{Version:
+  commit 50d01d81b003405ffd80a52f2c35284e846bf63d, 4 June 2024.
+  \url{https://github.com/beam-beam/BeamBeam3D}}.
+
+\end{thebibliography}

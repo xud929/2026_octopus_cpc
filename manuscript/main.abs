@@ -1,0 +1,22 @@
+Strong--strong beam--beam simulation must evolve two bunches self-consistently
+while controlling field discretization, macroparticle noise, and computational
+cost.  We present Octopus, a Julia/CUDA framework for multi-slice,
+six-dimensional tracking whose common collision driver supports four
+transverse field models, from a soft-Gaussian closure to full
+particle-in-cell (PIC) solvers.  Two numerical developments address errors
+exposed by adaptive PIC:
+an assignment-consistent Gaussian/residual field split and node-indexed meshes
+that remove the mesh-mismatch component of slice-boundary discontinuities.  An
+ensemble analysis separates mean-field bias from finite-particle fluctuation
+and shows that mesh refinement can reduce the former while increasing the
+latter.  Validation progresses from structural identities and analytic fields
+to Vlasov theory and the unmodified BeamBeam3D code.  At the tested settings,
+PIC-family and BeamBeam3D round-beam coherent factors lie within 1.42\% of the
+Vlasov reference, and the largest same-setting cross-code difference is
+0.31\%.  A historical 15-slice, 8192-turn EIC application gives comparable
+emittance evolution under nonidentical inputs.  Because complete source and
+raw-output provenance was not retained, it is qualitative context rather than
+source-pinned validation.  An EIC-scale case with
+$3.58\times10^6$ macroparticles advances in about $0.31$~s per turn on one
+NVIDIA RTX~4500 Ada GPU.  Together, the error analysis, validation, and timing
+results support practical strong--strong studies within the tested domain.
