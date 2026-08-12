@@ -64,8 +64,12 @@ CUDA.allowscalar(false)
 
 const XI = 0.005
 const ENERGY = 10.0e9
-const BETA = (0.55, 0.55, 0.7e-2 / 5.5e-4)
-const SIGMA = (106.0e-6, 106.0e-6, 0.7e-2)
+# --sigz added 2026-08-12 with --nslices: the multislice deck runs a LONG
+# bunch (0.275 m, sigma_z/beta* ~ 0.5) where the frozen single-slice runner
+# hardcoded 0.007. beta_z tracks sigma_z at fixed dp/p = 5.5e-4.
+sigz = parse(Float64, get(args, "sigz", "0.7e-2"))
+const BETA = (0.55, 0.55, sigz / 5.5e-4)
+const SIGMA = (106.0e-6, 106.0e-6, sigz)
 const TUNE = (0.31, 0.32, -0.01)
 const CUTOFF = 5.0
 
