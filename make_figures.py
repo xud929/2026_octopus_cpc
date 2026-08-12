@@ -450,23 +450,33 @@ def fig_boundary_jump():
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(6.3, 2.6))
 
-    modes = [("per_slice_grid", "per-slice-pair\n(production)"),
+    # Five columns: the four frozen-source grid constructions AND the
+    # node-indexed live-source control, with per-column sample maxima --
+    # the caption describes all five; a four-column rewrite silently
+    # dropped the live control the text's 2.2--3.6e-5 numbers refer to.
+    modes = [("per_slice_grid", "slice-pair"),
              ("source_slice_grid", "shared\nsource mesh"),
              ("common_grid", "common\nmesh"),
-             ("node_grid", "node-indexed")]
+             ("node_grid", "node\nproduction"),
+             ("node_source_evolution", "node\nlive")]
     for i, (key, lab) in enumerate(modes):
         a = np.array(cic[key])
-        ax1.plot([i - 0.12] * len(a), np.abs(a[:, 0]), "o", color=BLUE,
+        ax1.plot([i - 0.14] * len(a), np.abs(a[:, 0]), "o", color=BLUE,
                  markersize=4.5, markerfacecolor="none", markeredgewidth=1.1,
                  label="horizontal" if i == 0 else None)
-        ax1.plot([i + 0.12] * len(a), np.abs(a[:, 1]), "s", color=ORANGE,
+        ax1.plot([i + 0.14] * len(a), np.abs(a[:, 1]), "s", color=ORANGE,
                  markersize=4.5, markerfacecolor="none", markeredgewidth=1.1,
                  label="vertical" if i == 0 else None)
+        for off, col in ((-0.14, 0), (0.14, 1)):
+            ax1.plot([i + off - 0.14, i + off + 0.14],
+                     [np.abs(a[:, col]).max()] * 2, "-", color=INK2,
+                     linewidth=1.2,
+                     label="sample maximum" if (i, col) == (0, 0) else None)
     ax1.set_yscale("log")
     ax1.set_xticks(range(len(modes)))
     ax1.set_xticklabels([m[1] for m in modes], fontsize=6.2)
     ax1.set_ylabel("relative transverse\nkick jump at boundary")
-    ax1.legend(fontsize=6.5, handlelength=1.0, loc="center right")
+    ax1.legend(fontsize=6.0, handlelength=1.0, loc="center right")
     style_axis(ax1)
 
     pairs = [(cic, 2, "CIC\nlinear"), (cic, 5, "CIC\nquadratic"),
@@ -485,10 +495,10 @@ def fig_boundary_jump():
     ax2.text(2.88, 0.02, r"$\approx$580$\times$", fontsize=6.5, color=MUTED,
              ha="right")
     style_axis(ax2)
-    for ax, tag in [(ax1, "(a)"), (ax2, "(b)")]:
+    for ax, tag, ncat in [(ax1, "(a)", len(modes)), (ax2, "(b)", len(pairs))]:
         ax.text(0.02, 0.03, tag, transform=ax.transAxes, color=INK,
                 fontsize=9, fontweight="bold", va="bottom")
-        ax.set_xlim(-0.55, len(modes) - 0.45)
+        ax.set_xlim(-0.55, ncat - 0.45)
     fig.tight_layout(w_pad=1.6)
     fig.savefig(os.path.join(OUT, "fig_boundary_jump.pdf"))
     plt.close(fig)
