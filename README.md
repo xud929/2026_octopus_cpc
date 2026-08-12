@@ -54,6 +54,12 @@ python3 verify_manuscript_claims.py
 sha256sum -c SHA256SUMS           # integrity of the frozen package
 ```
 
+`SHA256SUMS` covers the frozen inputs (`data/`, `manuscript/`, the scripts) —
+not `figs/`, which are derived artifacts: regenerating them rewrites PDF
+metadata (timestamps), so checksumming them would fail the quickstart's own
+first step. The committed `figs/` are one regeneration's output; their
+content is reproducible, their bytes are not.
+
 **Known state of the claim verifier (2026-08-12):** it reports ~42 findings
 against the submitted manuscript. These are not verifier defects — they are
 the revision queue created when the 2026-08-05/06 Octopus audits corrected
