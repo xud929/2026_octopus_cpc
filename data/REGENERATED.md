@@ -9,3 +9,8 @@ for the campaign). Datasets not listed here are submission-era.
 | `pic_gaussian_field_validation_random_summary.tsv` | `12325fc` | 2026-08-12 | CPU (8 threads) | **bit-identical** at archived settings (SOURCE_AXIS=160, FIELD_AXIS=81, PIC_GRID=128 — the script's defaults drifted to 320/161/256; pin via env when regenerating) |
 | `bb3d singleslice_fort.{24,25,34,35}` | BB3D `50d01d8` | 2026-08-12 | this host, 2 MPI ranks | **bit-identical** live rerun from archived decks; launcher must be `/usr/lib64/openmpi/bin/mpirun` (the conda mpirun aborts with MPI_ERR_ARG) |
 | `kick_decomposition_R100.tsv` | `12325fc` | 2026-08-12 | CPU (16 threads), OCTOPUS_KD_R=100 NBOOT=200 | **verified**: 100/108 cells bit-identical, rest ≤1.2e-12 rel (fold order) — archived data stands |
+| `noise_floor_meshswap.tsv` | `3159631` | 2026-08-12 | CPU (16 threads) | **verified**: 30/38 cells bit-identical, rest ≤6.6e-12 (fold order) |
+| `yokoya_vs_aspect.tsv`, `yokoya_vs_xi_theory.tsv` | `3159631` | 2026-08-12 | CPU (16 threads) | **bit-identical** |
+| `yokoya_vs_aspect_narrow.tsv` | `3159631` | 2026-08-12 | CPU | ≤5.4e-5 rel — below quoted precision |
+| `yokoya_box_convergence.tsv` | `3159631` | 2026-08-12 | CPU | 3% rel on cancellation-sensitive entries; run-to-run deterministic, so a real change — archive-commit rerun in flight to prove attribution |
+| `slice_longitudinal_zscan_jumps.tsv` (Fig. 4) | `3159631` | 2026-08-12 | CPU (16 threads) | **upgrade**: the archive was frozen WITHOUT its driver (documented gap); this is the committed driver's machine-reproducible output. NaN structure matches; per-boundary magnitudes are seed-scale scatter vs the unknown-provenance archive. TSC arm regenerating. |
