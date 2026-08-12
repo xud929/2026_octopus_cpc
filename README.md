@@ -291,6 +291,13 @@ that no figure or table of this paper uses. They support a planned separate
 study; see the README in that directory, which also records a driver-level
 correctness constraint worth reading before extending them.
 
+**Run transcripts.** `data/deriv_arm.log`, `data/lambda_flatxi.log`,
+`data/lambda_noexc.log` and `data/lambda_tunescan.log` are the raw stdout
+transcripts of driver runs whose printed values were hand-transcribed into
+TSVs (the U21-12 class: no machine-reproducible script-to-artifact path).
+They are tracked deliberately as the primary records behind those
+transcriptions — they were never committed anywhere before 2026-08-12.
+
 ## Reproducibility notes
 
 - Scripts in this repository use paths relative to their own location, so

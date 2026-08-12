@@ -1,0 +1,2 @@
+588.984452 seconds (13.98 G allocations: 589.910 GiB, 35.33% gc time, 2.44% compilation time)
+noexc flat r=1/11  Lambda_x=1.2991

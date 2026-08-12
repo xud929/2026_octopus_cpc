@@ -1,0 +1,12 @@
+288.994114 seconds (6.99 G allocations: 295.344 GiB, 33.95% gc time, 3.54% compilation time)
+flatxi r=0.09  xi=0.005  turns=4096  Lambda_x=1.2601
+561.748540 seconds (13.93 G allocations: 588.128 GiB, 34.91% gc time, 0.01% compilation time)
+flatxi r=0.09  xi=0.002  turns=8192  Lambda_x=1.2588
+1119.566370 seconds (27.87 G allocations: 1.149 TiB, 34.97% gc time)
+flatxi r=0.09  xi=0.001  turns=16384  Lambda_x=1.2727
+278.234757 seconds (6.97 G allocations: 294.114 GiB, 35.07% gc time)
+flatxi r=0.05  xi=0.005  turns=4096  Lambda_x=1.2079
+576.662794 seconds (13.93 G allocations: 588.128 GiB, 34.95% gc time)
+flatxi r=0.05  xi=0.002  turns=8192  Lambda_x=1.274
+1165.812600 seconds (27.87 G allocations: 1.149 TiB, 35.16% gc time)
+flatxi r=0.05  xi=0.001  turns=16384  Lambda_x=1.2759

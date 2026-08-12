@@ -1,0 +1,9 @@
+deriv4_s1                    ele_ey'=+8.545e-05 pro_ey'=+2.800e-06  eps_y(end)/eps_y(0)=1.09201  cross=0.470  679s
+done seed=1
+deriv4_s2                    ele_ey'=+8.843e-05 pro_ey'=+2.652e-06  eps_y(end)/eps_y(0)=1.09194  cross=0.470  640s
+done seed=2
+deriv4_s3                    ele_ey'=+7.877e-05 pro_ey'=+3.490e-06  eps_y(end)/eps_y(0)=1.08428  cross=0.470  672s
+done seed=3
+deriv4_s4                    ele_ey'=+8.708e-05 pro_ey'=+2.588e-06  eps_y(end)/eps_y(0)=1.08682  cross=0.470  645s
+done seed=4
+ALLDONE
