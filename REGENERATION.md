@@ -8,6 +8,21 @@ each regenerated file's provenance (header comment or a sibling
 `PROVENANCE` note), rerun `make_figures.py` and `verify_manuscript_claims.py`
 after each batch, and commit data + figure changes together.
 
+**Reporting policy (owner, 2026-08-12):** the paper's tables and figures
+are produced on THIS machine's GPU (RTX 4500 Ada) — the EIC strong-strong
+production case at ~0.3 s/turn including luminosity and moment output is the
+headline table number. The A100 result (<0.2 s/turn, near state of the art)
+is cited in TEXT from the Octopus history records
+(`docs/history/weak_strong_cuda_luminosity_2026_08_11.md` and the
+strong-strong benchmark histories), not carried by any table or figure. The
+revised manuscript must fit **15 pages including everything** — the Sec. 6
+rewrite budget is bounded by that.
+
+**Settings pins.** Two datasets already caught script-default drift (the
+U23-10 class): regeneration MUST pin the archived settings explicitly (env
+or kwargs) and record them in the ledger row — a bare default run answers a
+different question than the archived figure.
+
 **Read this first — the performance section changes qualitatively.** The
 2026-08-11 Octopus campaign (device-side luminosity reduction, fused moment
 kernels, observer buffering; `docs/history/weak_strong_cuda_luminosity_2026_08_11.md`)
