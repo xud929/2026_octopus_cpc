@@ -1,0 +1,11 @@
+# Round-12 GPU instrumentation check: is the Sec 6.3 "serialized turn"
+# device time or instrument time? Production config, 30 turns, warm mean
+# over the last 20. Same machine, back to back.
+# instrumentation	turn_s
+# none	0.3170
+# CUDA_PIC_TIMING=1	0.3059
+# CUDA_PIC_TIMING_DETAIL=1	1.0043
+instrumentation	turn_seconds
+none	0.3170
+timing	0.3059
+timing_detail	1.0043

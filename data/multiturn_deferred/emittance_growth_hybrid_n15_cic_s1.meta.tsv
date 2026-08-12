@@ -1,0 +1,2 @@
+tag	scheme	nslices	deposit	gridmode	seed	turns	npart	grid	growth_ele_ey	growth_ele_ex	growth_pro_ey	growth_pro_ex	final_ratio_ele_ey	final_ratio_pro_ey	boundary_cross_fraction	elapsed_s
+hybrid_n15_cic_s1	linear	15	CIC	slice_pair	1	800	30000	64	6.829084122517192e-5	2.1080543622256065e-5	2.4364721369217544e-6	4.6537250440549576e-7	1.0795943641645078	1.0074745743145386	0.47020033333333333	947.9436409473419

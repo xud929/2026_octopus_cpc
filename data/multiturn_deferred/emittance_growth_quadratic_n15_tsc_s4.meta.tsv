@@ -1,0 +1,2 @@
+tag	scheme	nslices	deposit	gridmode	seed	turns	npart	grid	growth_ele_ey	growth_ele_ex	growth_pro_ey	growth_pro_ex	final_ratio_ele_ey	final_ratio_pro_ey	boundary_cross_fraction	elapsed_s
+quadratic_n15_tsc_s4	quadratic	15	TSC	slice_pair	4	800	30000	64	6.564901304121532e-5	1.951715471592491e-5	2.5542568066971793e-6	7.814770282025991e-7	1.0720826823128882	1.008231027441359	0.4702866666666667	813.5886981487274

@@ -1,0 +1,21 @@
+# Spread of the systematic/fluctuation decomposition across INDEPENDENT
+# source-realization ensembles (R=100 each).  The originally published
+# numbers came from ONE ensemble (seed 20260728) with no uncertainty.
+# Replication showed that draw is the extreme of the set for the flat
+# fluctuation rise.  Every seed either reviewer generated is included.
+# The 256^2 bias sits AT the measured sampling floor of its own
+# estimator, so bias ratios are one-sided bounds, not estimates, and
+# ratio-of-means is used (mean-of-ratios is biased high in that regime).
+# Regenerate: OCTOPUS_KD_SEED=<seed> julia --project=.. kick_decomposition.jl
+quantity	family	value	sd	se	min	max	n_ensembles
+bias_64	round	0.000469419	1.361e-05	3.122e-06	0.000449997	0.000493657	19
+bias_256	round	0.000116703	2.106e-05	4.831e-06	8.25677e-05	0.000166579	19
+fluct_rise_pct	round	9.51329	0.3715	0.08523	8.63909	10.2436	19
+bias_ratio_of_means_64_256	round	4.022	NA	NA	2.919	5.457	19
+bias_256_over_own_floor	round	NA	NA	NA	0.712	1.45	19
+bias_64	flat11	0.00139781	9.625e-05	2.208e-05	0.00123652	0.00159721	19
+bias_256	flat11	0.000208745	3.812e-05	8.745e-06	0.00015124	0.00027832	19
+fluct_rise_pct	flat11	18.4678	1.345	0.3085	15.6009	20.9181	19
+bias_ratio_of_means_64_256	flat11	6.696	NA	NA	4.877	8.793	19
+bias_256_over_own_floor	flat11	NA	NA	NA	0.734	1.34	19
+tsc_fluct_change_pct	all_pairs	-1.539	0.8922	NA	-3.816	-0.4589	19

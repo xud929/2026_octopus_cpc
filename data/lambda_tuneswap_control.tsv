@@ -1,0 +1,7 @@
+# Tune-swapped Yokoya control (validation setup of Sec 5.1, Qx/Qy swapped to 0.32/0.31)
+# 8192 turns, 1e5 macroparticles/beam, PIC 128^2, single slice, 3 seeds
+# Original run (Qx=0.31, Qy=0.32): Lambda_x = 1.199,1.1938,1.2011; Lambda_y = 1.2064,1.2025,1.2074
+config	seed_idx	Lambda_plane_at_Q0.32	Lambda_plane_at_Q0.31
+swapped	1	1.2057	1.1994
+swapped	2	1.2031	1.1954
+swapped	3	1.2074	1.2013

@@ -1,0 +1,18 @@
+# Sec 4.1 mesh study, GREEN CACHE DISABLED control (OCTOPUS_PIC_GREEN_CACHE=none).
+# Identical to mesh_study_reexecution.tsv in every other respect: production
+# point, shortened electron damping (100 turns), 1000 turns, seeds 1/2222/3333,
+# production macroparticle counts, driver mesh_study_driver.jl.
+# Purpose: the slice-pair Green cache reuses a mesh while the required extent
+# stays within a ratio window, so the effective mesh is coarser than tight-fit
+# by a MESH-DEPENDENT amount. This control removes it. Proton horizontal
+# emittance growth, percent.
+config	seed	pro_ex_growth_pct
+pic64	1	0.33202090139463625
+pic64	2222	0.3311175666190991
+pic64	3333	0.35125543863141484
+pic128	1	0.3403336207857377
+pic128	2222	0.3416227293898677
+pic128	3333	0.37111916956613644
+pic256	1	0.3441074994766202
+pic256	2222	0.345898384858323
+pic256	3333	0.3776472294354738

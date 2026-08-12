@@ -1,0 +1,7 @@
+# GPU size scans, solver-only 30-turn protocol, warm mean of final 10 turns, single runs
+config	s_per_turn
+half_1.28M_0.512M_mesh128	0.204
+nominal_2.56M_1.024M_mesh128	0.285
+double_5.12M_2.048M_mesh128	0.424
+nominal_mesh64	0.255
+nominal_mesh256	0.549

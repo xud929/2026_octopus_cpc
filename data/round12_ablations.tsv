@@ -1,0 +1,11 @@
+# Round-12: Green-cache ablation and node-arm macroparticle scan.
+# (a) cache=none (tight-fit mesh every interaction) vs default, 1000 turns,
+#     seed 1, proton x growth %:
+# grid	cached	cache_none
+64	0.3190	0.3320
+128	0.3384	0.3403
+# (b) node-indexed vs slice_pair penalty, 600 turns, seed 1, electron ey %:
+# npart	slice_pair	node	penalty_pct
+30000	7.390	8.245	11.6
+60000	4.804	5.248	9.2
+120000	3.749	4.092	9.1

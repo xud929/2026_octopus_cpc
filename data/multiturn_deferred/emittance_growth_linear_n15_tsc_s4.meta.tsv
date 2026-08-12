@@ -1,0 +1,2 @@
+tag	scheme	nslices	deposit	seed	turns	npart	grid	growth_ele_ey	growth_ele_ex	growth_pro_ey	growth_pro_ex	final_ratio_ele_ey	final_ratio_pro_ey	boundary_cross_fraction	elapsed_s
+linear_n15_tsc_s4	linear	15	TSC	4	800	30000	64	7.085753958929153e-5	2.1037707740478773e-5	2.9296747012332484e-6	8.995243847236386e-7	1.073877544122339	1.0084329077094805	0.470287	859.1934428215027

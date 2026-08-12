@@ -1,0 +1,19 @@
+# CUDA.jl 6.2.1 in-process CUPTI profile, production point
+# 10 steady-state turns after 20 warm-up turns
+# Derived from cuda_device_activities.tsv (same run).
+# device_sum_s	2.419009
+# device_union_s	2.406107
+# overcount_from_stream_overlap	0.005362
+phase	percent_device_time	ms_per_turn	launches_per_turn
+PIC kick (incl. longitudinal)	30.68	74.212	225.0
+bounds reductions (mesh extent and luminosity)	16.84	40.735	479.0
+force deposition	11.36	27.491	450.0
+cuFFT transforms	11.12	26.900	157.6
+non-collision beamline	9.35	22.618	4.0
+luminosity deposition	8.75	21.175	450.0
+transform staging and normalization	4.48	10.842	157.6
+framework broadcast/copy/reduce	3.62	8.751	1276.3
+spectral multiply	1.93	4.672	29.0
+Green function build	1.14	2.769	20.8
+field differences	0.47	1.147	29.0
+wavefront bookkeeping, luminosity reduction	0.24	0.589	88.0

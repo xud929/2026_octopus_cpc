@@ -1,0 +1,13 @@
+# Environment for the paper-specific drivers in drivers/. Octopus is pinned
+# to the commit the archived datasets were produced against; until
+# Octopus.jl's public release, Pkg.develop a local clone at that commit
+# instead of instantiating (see README, "Octopus pin").
+[deps]
+DelimitedFiles = "8bb1440f-4735-579b-a4ab-409b98df4dab"
+FFTW = "7a1cc6ca-52ef-59f5-83cd-3a7055c09341"
+Octopus = "badbaa64-7004-4ad4-8ce5-525483dccda7"
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
+
+[sources]
+Octopus = {url = "https://github.com/xud929/Octopus.jl", rev = "c3f80f005b55dc314ade1b8980612c08db82d232"}

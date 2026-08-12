@@ -1,0 +1,5 @@
+Octopus provides GPU strong--strong tracking with four transverse field models.
+Gaussian subtraction reduces near-Gaussian field discretization error.
+Node-indexed grids remove the adaptive-mesh boundary-mismatch component.
+Error decomposition separates finite-particle fluctuation from mean-field bias.
+Theory and BeamBeam3D checks define the demonstrated validation domain.

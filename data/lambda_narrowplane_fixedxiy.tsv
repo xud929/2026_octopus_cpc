@@ -1,0 +1,9 @@
+# Fixed-xi_y narrow-plane control (referee round 12): bunch charge set from
+# xi_y instead of xi_x, so xi_y = 0.005 at every aspect ratio. Single seed,
+# 2048 turns, 2e4 macroparticles/beam, PIC 128^2, single slice.
+# Lambda_x is in units of xi_x = xi_y * r; Lambda_y in units of xi_y.
+# r	Lambda_x_over_xiy	Lambda_x	Lambda_y	xi_y
+1.00	1.1903	1.1903	1.2086	0.005
+0.30	0.3762	1.2540	1.2083	0.005
+0.16	0.2078	1.2988	1.2174	0.005
+0.09	0.1156	1.2844	1.2246	0.005

@@ -1,0 +1,14 @@
+# Sec 4.1 mesh study, BOTH proton planes, cache enabled (production config).
+# Same driver/settings as mesh_study_reexecution.tsv; seeds 1/2222/3333 at
+# 64^2 and 256^2. The pro_ex column reproduces mesh_study_reexecution.tsv
+# exactly. Paired 64^2->256^2: eps_x +0.0342+-0.0105 pp (t=5.65, p=0.030),
+# eps_y +0.0426+-0.0045 pp (t=16.36, p=0.004) -- both resolved, same sign,
+# positive in every seed, with the VERTICAL plane the larger effect. The
+# manuscript quotes eps_x, i.e. the more conservative plane.
+config	seed	pro_ex_pct	pro_ey_pct
+pic64	1	0.3189995014643232	0.756555310740592
+pic64	2222	0.3124484634873692	0.7531109426157867
+pic64	3333	0.3307458868420765	0.7608389486774891
+pic256	1	0.343288146405496	0.7978814172275861
+pic256	2222	0.34551869716870076	0.800769471392293
+pic256	3333	0.375895323991271	0.7997573254023171

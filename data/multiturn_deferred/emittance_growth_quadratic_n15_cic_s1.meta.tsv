@@ -1,0 +1,2 @@
+tag	scheme	nslices	deposit	seed	turns	npart	grid	growth_ele_ey	growth_ele_ex	growth_pro_ey	growth_pro_ex	final_ratio_ele_ey	final_ratio_pro_ey	boundary_cross_fraction	elapsed_s
+quadratic_n15_cic_s1	quadratic	15	CIC	1	800	30000	64	8.041821278362094e-5	2.4810568977664955e-5	2.968582311542056e-6	9.423198439294505e-7	1.0896197196883943	1.007643135636551	0.470201	891.5485401153564

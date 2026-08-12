@@ -1,0 +1,11 @@
+# Narrow-plane Yokoya factor scan: single seed, scan settings (2048 turns,
+# 2e4 macroparticles/beam, PIC 128^2, single slice), fixed beta*, xi_x=0.005;
+# xi_y = xi_x / r in this construction. Lambda_y = (Q_pi - Q_sigma)_y / xi_y.
+# Script: paper repo lambda_narrowplane.jl pattern (validation/coherent_mode_scans.jl).
+# r	Lambda_x	Lambda_y	xi_y
+1.0	1.1903	1.2086	0.005
+0.55	1.2028	1.2056	0.0091
+0.30	1.2261	1.2055	0.0167
+0.16	1.2513	1.2129	0.0313
+0.09	1.2661	1.2368	0.0556
+0.05	1.2411	0.7751	0.100

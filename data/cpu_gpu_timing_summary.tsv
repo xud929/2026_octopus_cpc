@@ -1,0 +1,12 @@
+# Production-size timing measurements (Sec 6): warm means, s/turn
+# CPU: observers on, 15-30 turn runs, first 3 turns discarded
+# GPU: 200-turn runs, mean of turns 100-200
+config	s_per_turn
+cpu_1thread	41.0
+cpu_4threads	42.57
+cpu_8threads	41.5
+cpu_16threads	42.67
+cpu_32threads	46.3
+gpu_observers_on	0.318
+gpu_observers_off	0.302
+gpu_solver_only_30turn	0.285
