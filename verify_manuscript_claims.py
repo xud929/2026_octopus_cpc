@@ -471,17 +471,6 @@ def check_timing():
                  "nominal process means")
             want(f"{float(r[7]) * 1e5 / 3600:.2f} GPU-hours",
                  "GPU-hour extrapolation from process mean")
-    # green-cache ablation table
-    gc = read_tsv(os.path.join(DATA, "green_cache_ablation.tsv"))[1:]
-    for r in gc:
-        want(f"${float(r[4]):.4f}\\pm{float(r[5]):.4f}$",
-             f"green-cache row {r[0]}")
-    none_t = float(next(r for r in gc if r[0] == "none")[4])
-    def_t = float(next(r for r in gc if r[0] == "default")[4])
-    pct = round(100 * (none_t / def_t - 1))
-    if f"costs {pct}\\%" not in flat:
-        flag(f"no-cache overhead recomputes to {pct}%; text states a "
-             "different value")
     # weak-strong companion number in the A100 sentence
     import statistics as _st
     ws = [float(r[1]) for r in

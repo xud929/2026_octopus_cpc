@@ -962,32 +962,10 @@ pair's live domains still fit; a cached grid is declared too large once the
 requested width or height falls below the fraction
 \code{slice\_pair\_green\_min\_ratio} of the cached one, and
 \code{slice\_pair\_green\_growth} sets the fractional margin applied when an
-entry is (re)built.  Table~\ref{tab:greencache} isolates this cost at the
-nominal production point: rebuilding every pair costs 20\% over the default
-cache ($0.50$, $0.25$), which reuses entries across turns at the price of
-transiently up to twice-wider cells, while a near-exact setting ($0.95$,
-$0.05$) forfeits reuse --- the domains of breathing beams leave the
-tolerance band almost every encounter --- and its rebuild path is more
-expensive than building each Green function fresh.
-
-\begin{table}[pos=h]
-\centering
-\caption{Green-cache ablation at the nominal production point
-($3.58\times10^6$ macroparticles, $128^2$, 15 slices, observers as in
-Table~\ref{tab:performance}).  Entries are means $\pm$ sample SD over three
-process medians measured in one batch; the batch carries its own baseline,
-so the comparison is same-session.}
-\label{tab:greencache}
-\begin{tabular}{lccc}
-\toprule
-Green-function handling & min ratio & growth & median s/turn \\
-\midrule
-rebuilt for every pair        & --   & --   & $0.3912\pm0.0021$ \\
-slice-pair cache (default)    & 0.50 & 0.25 & $0.3248\pm0.0011$ \\
-slice-pair cache (near-exact) & 0.95 & 0.05 & $0.5164\pm0.0069$ \\
-\bottomrule
-\end{tabular}
-\end{table}
+entry is (re)built.  The two parameters trade reuse against cell tightness:
+a small ratio and a generous margin keep entries alive across turns at the
+price of transiently wider cells, while values near the exact fit track the
+live domain and rebuild whenever it leaves the tolerance band.
 
 \subsection{Benchmark and scaling}
 

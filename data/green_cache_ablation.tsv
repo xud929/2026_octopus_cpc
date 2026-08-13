@@ -2,6 +2,10 @@
 # 128^2, 15 slices, every-turn luminosity + two moment observers).
 # Protocol as data/gpu_walltime_table.tsv: 120 turns/process,
 # median over turns 21..120, mean +- sample SD over 3 process medians.
+# CAVEAT (owner, 2026-08-13): the 120-turn window sits in the
+# cache-miss transient before the beam sizes settle; the near-exact
+# (0.95/0.05) row is dominated by early-turn rebuilds and does NOT
+# represent long-run production behavior. Not cited by the paper.
 # Octopus commit 800d74652a79c59fca89e0d612703ddda5fd47b7
 config	green_cache	min_ratio	growth	mean_s_per_turn	sd_s_per_turn	process_medians
 none	none	-	-	0.3912	0.0021	0.3905,0.3895,0.3936
