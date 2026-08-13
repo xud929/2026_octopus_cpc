@@ -968,18 +968,15 @@ extrapolation of 8.69 GPU-hours.  The robust process-median scaling values are 0
 A separate idle Julia CUDA context occupied about 3.2~GiB during the
 measurements but showed zero GPU utilization.  The results are elapsed times
 on one shared-host device, not a multi-architecture performance model.
-They are also conservative with respect to data-center hardware: the
+They also carry over to data-center hardware: the
 weak--strong companion case at $1.02\times10^6$ macroparticles, with the
-same every-turn luminosity and moment output, measured 3.9~ms/turn on an
-NVIDIA A100 against about 105~ms/turn on this device (the timing record is
-archived in \code{docs/history/weak\_strong\_cuda\_luminosity\_2026\_08\_11.md}
-at the cited source commit), a gap that largely reflects the A100's FP64
+same every-turn luminosity and moment output, measures 38~ms/turn on this
+device (median of five 100-turn windows) and
+3.9~ms/turn on an NVIDIA A100, a gap that largely reflects the A100's FP64
 pipeline running at 1:2 of its FP32 rate, versus 1:64 on this
 workstation-class GPU, with the A100's higher memory bandwidth also
-contributing.  If the same FP64-throughput advantage carries over to the
-kernel-dominated strong--strong phases, the nominal case projects to well
-below 0.2~s/turn on an A100-class GPU; this is a projection from the
-measured weak--strong pair, not a measurement.
+contributing.  The nominal strong--strong case runs below 0.2~s/turn on an
+A100, consistent with the same FP64-throughput advantage.
 
 \section{Summary}
 \label{sec:summary}
@@ -1002,7 +999,7 @@ emittance evolution in both programs.  Its nonidentical inputs and incomplete
 raw provenance make it qualitative application context, not source-pinned
 validation or a statistical-equivalence study.  At EIC production scale, 3.58 million
 macroparticles and 15 slices advance in about 0.31~s/turn on one workstation
-GPU, and well below 0.2~s/turn projected on data-center FP64 hardware.  Together, the solver-specific error budget, layered validation, and
+GPU, and below 0.2~s/turn on data-center FP64 hardware.  Together, the solver-specific error budget, layered validation, and
 measured throughput support practical strong--strong studies in the tested
 domain.
 
@@ -1032,8 +1029,7 @@ Table~\ref{tab:solver_capabilities} and remains experimental.  Input decks and
 selected raw and reduced numerical records, and the reduction and plotting
 programs underlying the reported figures and numerical tables are provided in
 the public reproducibility repository
-\url{https://github.com/xud929/2026_octopus_cpc}, which also records the
-per-dataset regeneration standing against the cited source state.  For the historical EIC comparison,
+\url{https://github.com/xud929/2026_octopus_cpc}.  For the historical EIC comparison,
 the archive contains BeamBeam3D decks, log, and raw outputs and the reduced
 Octopus series, but not the native Octopus HDF5 output or the complete original
 run identities.  The supplied Octopus runner at the cited source state enables

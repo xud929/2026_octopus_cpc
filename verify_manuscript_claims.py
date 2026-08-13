@@ -427,6 +427,11 @@ def check_timing():
                  "nominal process means")
             want(f"{float(r[7]) * 1e5 / 3600:.2f} GPU-hours",
                  "GPU-hour extrapolation from process mean")
+    # weak-strong companion number in the A100 sentence
+    import statistics as _st
+    ws = [float(r[1]) for r in
+          read_tsv(os.path.join(DATA, "weakstrong_walltime.tsv"))[1:]]
+    want(f"measures {round(_st.median(ws))}~ms/turn", "weak-strong companion wall time")
 
 
 # ------------------------------------------------------- structural figure QA
