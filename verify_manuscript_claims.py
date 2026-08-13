@@ -158,12 +158,29 @@ def check_yokoya():
     if not abs(qs_x - qs_oct_x) < 4e-6:
         flag(f"Q_sigma_x cross-code difference {abs(qs_x - qs_oct_x):.2e} "
              "exceeds the manuscript's <4e-6")
+    # solver rows and one-at-a-time deltas, from the archived sensitivity TSV
+    sens = {}
+    for r in read_tsv(os.path.join(DATA, "lambda_sensitivity.tsv"))[1:]:
+        sens.setdefault(r[0], []).append((float(r[2]), float(r[3])))
+    sx = {v: mean([p[0] for p in pts]) for v, pts in sens.items()}
+    sy = {v: mean([p[1] for p in pts]) for v, pts in sens.items()}
+    want(f"{sx['soft']:.3f} & {sy['soft']:.3f}", "soft-Gaussian table row")
+    want(f"{sx['hybrid']:.3f} & {sy['hybrid']:.3f}", "hybrid table row")
+    for v, label in (("grid256", "grid delta"), ("offset025", "offset delta"),
+                     ("turns16384", "turns delta")):
+        want(f"({sx[v] - mean(lx):+.4f},{sy[v] - mean(ly):+.4f})",
+             f"one-at-a-time {label}")
+    hyb_dist = 100 * (1.2144 - sx["hybrid"]) / sx["hybrid"]
+    if f"{hyb_dist:.2f}\\%" not in flat:
+        flag(f"hybrid max distance recomputes to {hyb_dist:.2f}% "
+             "(measured denominator); table states a different value")
+
     # abstract/summary/table 'within X%' statements are BOUNDS on the distance
     # from the Vlasov reference: they must cover the recomputed maximum and be
     # within 0.05 pp of tight.
     vl = 1.2144
-    fam = {"PIC x": mean(lx), "PIC y": mean(ly), "hybrid x": 1.200,
-           "hybrid y": 1.207, "BB3D x": bx, "BB3D y": by}
+    fam = {"PIC x": mean(lx), "PIC y": mean(ly), "hybrid x": sx["hybrid"],
+           "hybrid y": sy["hybrid"], "BB3D x": bx, "BB3D y": by}
     dist = max(abs(vl - v) / vl * 100 for v in fam.values())
     m = re.search(r"lie within \$?([\d.]+)\\%\$? of the\s*Vlasov", flat)
     if m:
@@ -175,10 +192,6 @@ def check_yokoya():
     if "0.31\\%" in flat and round(cross, 2) != 0.31:
         flag(f"largest same-setting cross-code difference recomputes to "
              f"{cross:.2f}%, manuscript says 0.31%")
-    unarchived.append("Yokoya one-at-a-time deltas (+0.0040/+0.0034, "
-                      "+0.0071/+0.0055, -0.0011/-0.0041) - single seed-matched runs")
-    unarchived.append("soft-Gaussian Lambda (1.096, 1.101) and hybrid Lambda "
-                      "(1.200, 1.207) - single runs, no archived series")
 
 
 # ------------------------------------------ Sec 4.1: noise-floor text medians

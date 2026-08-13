@@ -690,16 +690,17 @@ $1.2144$ for round Gaussian beams
 At the stated $128^2$, $0.1\sigma$, 8192-turn setting, three PIC runs give
 $\Lambda=(1.1973\pm0.0035,1.2061\pm0.0004)$, where the uncertainties are seed
 scatter only.  Figure~\ref{fig:coherent} shows the centroid spectra and the
-fitted $Q_\sigma$ and $Q_\pi$ for one representative seed.  One-at-a-time seed-matched changes quantify the larger numerical
+fitted $Q_\sigma$ and $Q_\pi$ for one representative seed.  One-at-a-time changes, averaged over the same three seeds, quantify the
+larger numerical
 envelope: $128^2\!\rightarrow256^2$ shifts $(\Lambda_x,\Lambda_y)$ by
-$(+0.0040,+0.0034)$, $0.1\sigma\!\rightarrow0.025\sigma$ by
-$(+0.0071,+0.0055)$, and 8192 to 16384 turns by
-$(-0.0011,-0.0041)$.  A zero-padded diagnostic attributes much of the last
+$(+0.0045,+0.0030)$, $0.1\sigma\!\rightarrow0.025\sigma$ by
+$(+0.0070,+0.0060)$, and 8192 to 16384 turns by
+$(-0.0002,-0.0031)$.  A zero-padded diagnostic attributes much of the last
 vertical shift to three-bin interpolation and FFT-bin phase.  Thus the robust
 claim is a round-beam factor near 1.20--1.21, not a three-decimal continuum
 limit.  Gaussian-subtracted PIC gives the value listed in
 Table~\ref{tab:yokoya}, while soft-Gaussian gives
-$\Lambda=(1.096,1.101)$: evolving moments recover part
+$\Lambda=(1.096,1.100)$: evolving moments recover part
 of the shift above the rigid value but omit distribution-shape feedback
 \citep{Yokoya2000}.
 
@@ -729,16 +730,17 @@ share no source but implement the same CIC/integrated-Green method.
 \caption{Fixed-setting round-beam Yokoya factors
 $\Lambda=(Q_\pi-Q_\sigma)/\xi$ (8192 turns, $10^5$ macroparticles/beam,
 $\xi=0.005$, one slice).  PIC reports mean $\pm$ seed SD for three runs, not
-total numerical uncertainty; other rows are single runs.  BeamBeam3D uses the
+total numerical uncertainty; the soft-Gaussian and Gaussian-subtracted rows
+are three-seed means and BeamBeam3D is a single run.  BeamBeam3D uses the
 nominal denominator.  The Vlasov reference is 1.2144.}
 \label{tab:yokoya}
 \begin{tabular}{lccc}
 \toprule
 solver & $\Lambda_x$ & $\Lambda_y$ & assessment \\
 \midrule
-soft-Gaussian            & 1.096 & 1.101 & below Vlasov value (closure) \\
+soft-Gaussian            & 1.096 & 1.100 & below Vlasov value (closure) \\
 PIC $128^2$              & $1.1973\pm0.0035$ & $1.2061\pm0.0004$ & fixed setting \\
-Gaussian-subtracted PIC $64^2$ & 1.200 & 1.207 & max.\ distance 1.20\% \\
+Gaussian-subtracted PIC $64^2$ & 1.198 & 1.206 & max.\ distance 1.34\% \\
 BeamBeam3D               & 1.1974 & 1.2098 & independent code \\
 \bottomrule
 \end{tabular}
