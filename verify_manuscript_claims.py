@@ -243,9 +243,26 @@ def check_decomposition():
                       "floor_boot = median(nulls)); per-block 95th percentiles "
                       "were never emitted. Archived per-block bias/floor ratios "
                       "span 0.712-1.45 (round), 0.734-1.34 (flat)")
-    unarchived.append("Panel B pooled R=1900 statistics (B256 3.453e-5/1.252e-4, "
-                      "sign-flip floors 3.952e-5/6.459e-5, delete-one-block and "
-                      "bootstrap intervals) - per-realization records not archived")
+    # Panel B pooled statistics, from the archived pooled-analysis TSV
+    # (drivers/kd_pooled_analysis.py over the 19-ensemble dumps).
+    pooled = {(r[0], r[1]): r for r in
+              read_tsv(os.path.join(DATA, "kd_pooled_panelB.tsv"))[1:]}
+    for fam, tag in (("round", "round"), ("flat11", "flat")):
+        b64 = float(pooled[(fam, "64")][2])
+        s64 = float(pooled[(fam, "64")][3])
+        r256 = pooled[(fam, "256")]
+        b256, s256 = float(r256[2]), float(r256[3])
+        want(f"${b64 * 1e4:.3f}$ & ${b256 * 1e4:.3f}$ & ${s64 * 1e4:.3f}$ & "
+             f"${s256 * 1e4:.3f}$", f"Panel B row {tag}")
+        want(f"[{float(r256[4]) * 1e4:.3f}, {float(r256[5]) * 1e4:.3f}]",
+             f"Panel B delete-one B256 interval {tag}")
+        want(f"[{float(r256[6]) * 1e4:.3f}, {float(r256[7]) * 1e4:.3f}]",
+             f"Panel B delete-one S256 interval {tag}")
+        mant, expo = f"{float(r256[8]):.3e}".split("e")
+        want(f"{mant}\\times10^{{{int(expo)}}}", f"Panel B null 95th {tag}")
+        mantB, expoB = f"{b256:.3e}".split("e")
+        want(f"B_{{256}}={mantB}\\times10^{{{int(expoB)}}}$",
+             f"Panel B pooled B256 in text, {tag}")
 
 
 # --------------------------------- Sec 3.3 + 4.3: boundary and z-interp jumps

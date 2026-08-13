@@ -1,0 +1,10 @@
+# Pooled (Panel B) kick-decomposition statistics from the
+# per-realization dumps (drivers/kd_pooled_analysis.py).
+# seeds: 20260728,1,11117,12345,13579,22229,24680,27182,31415,33331,44443,55557,66661,777001,777002,777003,77773,88887,98765
+# null: one Rademacher sign per realization vector, centered,
+# 2000 draws, numpy default_rng seed 20260812
+family	grid	pooled_B	pooled_S	B_loo_lo	B_loo_hi	S_loo_lo	S_loo_hi	null95_B
+round	64	4.494260e-04	1.351257e-03					
+round	256	3.506632e-05	1.480507e-03	2.634089e-05	4.379175e-05	1.464097e-03	1.496916e-03	3.802907e-05
+flat11	64	1.407013e-03	2.542953e-03					
+flat11	256	7.138076e-05	3.019000e-03	4.624580e-05	9.651572e-05	2.984439e-03	3.053561e-03	6.588988e-05
