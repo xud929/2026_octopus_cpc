@@ -768,15 +768,20 @@ scatter in Table~\ref{tab:yokoya}.}
 A five-slice benchmark exercises the synchro-beam map and longitudinal
 kick.  Both codes use $\sigma_z/\beta^*=0.5$, $|Q_s|=0.01$,
 $\xi=0.005$, $5\times10^4$ macroparticles per beam, and 4096 turns.
+Octopus is run twice, with a $0.1\sigma$ coherent kick and noise-excited;
+the BeamBeam3D deck's centroid offset enters as a static orbit
+displacement rather than a coherent kick, so its trace is also
+noise-excited, and the quantitative comparison pairs the two noise-excited
+traces.
 Synchrotron modulation produces the line structure shown in
 Fig.~\ref{fig:msbench}.  With the displayed symmetric Hann window, the
 estimator searches $[Q_0-0.004,Q_0+0.010]$ and refines local maxima above
 1\% of the in-band maximum by a three-bin parabola.  Under that prescription,
-the noise-excited Octopus and coherently kicked BeamBeam3D horizontal traces
+the noise-excited Octopus and BeamBeam3D horizontal traces
 each contain six peaks.  Frequency-rank pairing gives median/maximum
 $|\Delta Q|=(1.20,3.84)\times10^{-4}$, with the maximum equal to 1.6 raw
 FFT bins.  Varying the peak threshold or window changes the accepted peak
-count, and the two traces use different excitation protocols.  Figure
+count.  Figure
 \ref{fig:msbench} therefore establishes similar horizontal spectral structure,
 not one-to-one mode identity.
 
@@ -786,7 +791,10 @@ not one-to-one mode identity.
 \caption{Five-slice normalized difference-mode spectra ($5\times10^4$
 macroparticles/beam, $\sigma_z/\beta^{*}=0.5$, $|Q_s|=0.01$, $\xi=0.005$,
 4096 turns).  Shading spans $[Q_\sigma,Q_\sigma+\xi]$ and the dashed line marks
-$Q_\sigma+1.2\xi$.  The noise-excited Octopus and coherently kicked BeamBeam3D
+$Q_\sigma+1.2\xi$.  Octopus is shown with a $0.1\sigma$ coherent kick and
+noise-excited; the BeamBeam3D deck's centroid offset is a static orbit
+displacement, so its trace is also noise-excited.  The noise-excited Octopus
+and BeamBeam3D
 horizontal traces each contain six peaks under the stated estimator; the
 comparison supports similar structure, not common mode identities.}
 \label{fig:msbench}
