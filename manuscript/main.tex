@@ -52,7 +52,9 @@ an assignment-consistent Gaussian/residual field split and node-indexed meshes
 that remove the mesh-mismatch component of slice-boundary discontinuities.  An
 ensemble analysis separates mean-field bias from finite-particle fluctuation
 and shows that mesh refinement can reduce the former while increasing the
-latter.  Validation progresses from structural identities and analytic fields
+latter.  A collision-time wavefront schedule runs dependency-free slice pairs
+concurrently on the GPU while preserving the per-slice collision order
+exactly.  Validation progresses from structural identities and analytic fields
 to Vlasov theory and the unmodified BeamBeam3D code.  At the tested settings,
 PIC-family and BeamBeam3D round-beam coherent factors lie within 1.42\% of the
 Vlasov reference, and the largest same-setting cross-code difference is
@@ -110,7 +112,10 @@ splitting in which a live Gaussian reference is projected analytically
 through the particle assignment operator, and the identification of a
 mesh-consistency failure when adjacent slice pairs construct adaptive
 transverse grids independently.  A node-indexed grid removes this
-mesh-mismatch term while retaining live-source evolution.
+mesh-mismatch term while retaining live-source evolution.  On the
+computational side, a collision-time \emph{wavefront} schedule
+(Section~\ref{sec:cuda}) runs dependency-free slice pairs concurrently on
+the GPU without changing the per-slice collision order.
 
 Within the common GPU-oriented driver, the four solvers have distinct
 production and diagnostic roles.  We evaluate them through a connected
@@ -905,13 +910,32 @@ remain outside the present study.
 
 \subsection{CUDA execution strategy}
 
-Because each encounter modifies its slices, all slice pairs cannot collide
-concurrently.  Octopus partitions the collision-time schedule into
-wavefronts whose pairs share no slice.  CUDA kernels access particles through
-slice index lists, without temporary gather/scatter copies.  Charge and force
-planes use batched FFTs; persistent workspaces and aspect-ratio-keyed Green
-functions avoid per-pair allocation and kernel construction.
+The multi-slice collision schedule is sequential per slice: each encounter
+modifies both participating slices, so a slice's later encounters depend on
+its earlier ones, and one slice pair at a time cannot fill a modern GPU ---
+a single $128^2$ deposit/solve/gather leaves most of the device idle.
+Octopus extracts the concurrency that the physics does permit.  Each pair
+$(i,j)$ is assigned the collision time implied by its slice centers,
+$t_{ij}\propto-(z^{(1)}_i+z^{(2)}_j)$ with both coordinates positive toward
+each bunch's head, so head--head pairs collide first, and all $n^2$ pairs
+are sorted by $t_{ij}$.  A pair is \emph{ready} once every earlier pair
+sharing either of its slices has completed; the scheduler repeatedly gathers
+the ready pairs that share no slice into one \emph{wavefront}.  Pairs within
+a wavefront touch disjoint particle sets, so executing the whole batch
+concurrently reproduces every slice's encounter sequence --- and therefore
+the sequential collision physics --- exactly; batching changes only the
+floating-point reduction order.  For $n$ equal-count slices per beam the
+schedule is the $2n-1$ anti-diagonals of the $n\times n$ interaction matrix:
+the production 15-slice case runs its 225 pairs in 29 wavefronts of up to 15
+concurrent pairs.  We are not aware of another beam--beam code that
+schedules slice pairs this way.
 
+The wavefront then drives the whole CUDA pipeline.  Kernels access particles
+through slice index lists, without temporary gather/scatter copies; the four
+source-boundary charge and force planes of every pair in a $b$-pair
+wavefront are solved in one batched FFT stack of $4b$ planes; persistent
+workspaces and aspect-ratio-keyed Green
+functions avoid per-pair allocation and kernel construction.
 Other high-volume operations follow the wavefront: fused two-level reductions
 set source and target bounds, both longitudinal planes are deposited together,
 and normalization, spectral multiplication, finite differences, and gathering
@@ -984,7 +1008,8 @@ advantage.
 \label{sec:summary}
 
 Octopus combines four complementary transverse field models,
-six-dimensional multi-slice collision physics, and GPU execution in one
+six-dimensional multi-slice collision physics, and wavefront-scheduled GPU
+execution in one
 strong--strong framework.  The error analysis shows why accuracy cannot be
 described by mesh size alone: refinement reduces mean-field bias but can expose
 more finite-particle fluctuation.  Assignment-consistent Gaussian subtraction

@@ -407,6 +407,50 @@ def check_eic():
              f"{frac:.0f}%, manuscript says 31%")
 
 
+# -------------------------------------------- Sec 6.1: wavefront schedule
+def check_wavefront():
+    """Recompute the collision-time wavefront schedule for the production
+    15x15 case: sort pairs by -(z1_i + z2_j), release a pair when all earlier
+    pairs sharing either slice are done, batch ready pairs sharing no slice."""
+    from math import erf, exp, pi, sqrt
+
+    def erfinv(y, lo=-10.0, hi=10.0):
+        for _ in range(200):
+            mid = 0.5 * (lo + hi)
+            lo, hi = (mid, hi) if erf(mid) < y else (lo, mid)
+        return 0.5 * (lo + hi)
+
+    def centers(n, sigma):
+        e = [sqrt(2.0) * erfinv(2 * (i / n) - 1) for i in range(n + 1)]
+        return [n * (exp(-e[i] ** 2 / 2) - exp(-e[i + 1] ** 2 / 2))
+                / sqrt(2 * pi) * sigma for i in range(n)]
+
+    c1, c2 = centers(15, 0.007), centers(15, 0.060)
+    pairs = sorted(((-(a + b) / 2, i, j) for i, a in enumerate(c1)
+                    for j, b in enumerate(c2)))
+    order_i = {i: [k for k, p in enumerate(pairs) if p[1] == i] for i in range(15)}
+    order_j = {j: [k for k, p in enumerate(pairs) if p[2] == j] for j in range(15)}
+    next_i, next_j = [0] * 15, [0] * 15
+    done = [False] * len(pairs)
+    remaining, sizes = len(pairs), []
+    while remaining:
+        used_i, used_j, batch = set(), set(), 0
+        for k, (_, i, j) in enumerate(pairs):
+            if done[k] or i in used_i or j in used_j:
+                continue
+            if order_i[i][next_i[i]] == k and order_j[j][next_j[j]] == k:
+                done[k] = True
+                used_i.add(i)
+                used_j.add(j)
+                next_i[i] += 1
+                next_j[j] += 1
+                batch += 1
+                remaining -= 1
+        sizes.append(batch)
+    want(f"225 pairs in {len(sizes)} wavefronts of up to {max(sizes)}",
+         "wavefront schedule for the 15-slice case")
+
+
 # ------------------------------------------------------- Sec 6: timing table
 def check_timing():
     path = os.path.join(DATA, "gpu_walltime_table.tsv")
@@ -554,6 +598,7 @@ check_boundary()
 check_lum_anchor()
 check_multislice()
 check_eic()
+check_wavefront()
 check_timing()
 unarchived.extend([
     "structural-check numbers (symplectic defects 7.91e-8->7.90e-10 / "

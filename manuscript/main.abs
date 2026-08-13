@@ -9,7 +9,9 @@ an assignment-consistent Gaussian/residual field split and node-indexed meshes
 that remove the mesh-mismatch component of slice-boundary discontinuities.  An
 ensemble analysis separates mean-field bias from finite-particle fluctuation
 and shows that mesh refinement can reduce the former while increasing the
-latter.  Validation progresses from structural identities and analytic fields
+latter.  A collision-time wavefront schedule runs dependency-free slice pairs
+concurrently on the GPU while preserving the per-slice collision order
+exactly.  Validation progresses from structural identities and analytic fields
 to Vlasov theory and the unmodified BeamBeam3D code.  At the tested settings,
 PIC-family and BeamBeam3D round-beam coherent factors lie within 1.42\% of the
 Vlasov reference, and the largest same-setting cross-code difference is
