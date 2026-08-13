@@ -972,11 +972,13 @@ They also carry over to data-center hardware: the
 weak--strong companion case at $1.02\times10^6$ macroparticles, with the
 same every-turn luminosity and moment output, measures 38~ms/turn on this
 device (median of five 100-turn windows) and
-3.9~ms/turn on an NVIDIA A100, a gap that largely reflects the A100's FP64
+3.9~ms/turn on an NVIDIA A100 of the NERSC Perlmutter system, a gap that
+largely reflects the A100's FP64
 pipeline running at 1:2 of its FP32 rate, versus 1:64 on this
 workstation-class GPU, with the A100's higher memory bandwidth also
-contributing.  The nominal strong--strong case runs below 0.2~s/turn on an
-A100, consistent with the same FP64-throughput advantage.
+contributing.  The nominal strong--strong case runs below 0.2~s/turn on
+Perlmutter's A100 nodes, consistent with the same FP64-throughput
+advantage.
 
 \section{Summary}
 \label{sec:summary}
@@ -999,7 +1001,8 @@ emittance evolution in both programs.  Its nonidentical inputs and incomplete
 raw provenance make it qualitative application context, not source-pinned
 validation or a statistical-equivalence study.  At EIC production scale, 3.58 million
 macroparticles and 15 slices advance in about 0.31~s/turn on one workstation
-GPU, and below 0.2~s/turn on data-center FP64 hardware.  Together, the solver-specific error budget, layered validation, and
+GPU, and below 0.2~s/turn on an NVIDIA A100 of the NERSC Perlmutter
+system.  Together, the solver-specific error budget, layered validation, and
 measured throughput support practical strong--strong studies in the tested
 domain.
 
