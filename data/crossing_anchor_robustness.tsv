@@ -1,0 +1,20 @@
+# Crossing-anchor robustness (validation/crossing_luminosity_anchor.jl,
+# parameterized seed/nslices/grid; Octopus paper-cpc worktree, 2026-08-12).
+# Machine-reproducible replacement for the submitted five-seed spread and
+# one-seed scan, whose seeds were never recorded.
+# Five paired seeds at 15 slices, 128^2: R_nocrab = 0.371950 +- 0.000272,
+# R_crab = 1.000000 +- 0.000010 (sample SD).
+# One-seed (20260728) scan span: 0.37147 -- 0.37195, no monotonic slice trend.
+seed	nslices	grid	R_nocrab	R_crab
+20260728	1	128	0.37147271	0.99999225
+20260728	1	256	0.37151398	1.00000829
+20260728	7	128	0.37193187	0.99999381
+20260728	7	256	0.37187660	0.99999839
+20260728	15	128	0.37194738	1.00000094
+20260728	15	256	0.37186025	1.00002239
+20260728	31	128	0.37191943	1.00000095
+20260728	31	256	0.37182001	1.00004426
+20260729	15	128	0.37185896	0.99999310
+20260730	15	128	0.37180147	0.99999016
+20260731	15	128	0.37172796	0.99999748
+20260732	15	128	0.37241498	1.00001642

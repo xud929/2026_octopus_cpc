@@ -314,9 +314,18 @@ def check_lum_anchor():
     if m and abs(float(m.group(1)) - rdisc_for(tan(12.5e-3))) > 5e-6:
         flag(f"crossing_lum_anchor.tsv header says R_discrete={m.group(1)}, "
              f"tan-convention quadrature gives {rdisc_for(tan(12.5e-3)):.6f}")
-    unarchived.append("luminosity anchor five-seed spreads (0.371958+-0.000257, "
-                      "crab 1.000002+-0.000007) and the 1/7/15/31-slice x grid scan "
-                      "0.37097--0.37165 - only the single-seed anchor TSV is archived")
+    # five-seed spread and slice/grid scan, from the archived robustness TSV
+    rows = read_tsv(os.path.join(DATA, "crossing_anchor_robustness.tsv"))[1:]
+    five = [(float(r[3]), float(r[4])) for r in rows
+            if r[1] == "15" and r[2] == "128"]
+    if len(five) != 5:
+        flag(f"anchor robustness TSV has {len(five)} seeds at 15/128, not 5")
+    want(f"{mean([x for x, _ in five]):.6f}\\pm{sd([x for x, _ in five]):.6f}$",
+         "anchor five-seed no-crab")
+    want(f"{mean([c for _, c in five]):.6f}\\pm{sd([c for _, c in five]):.6f}$",
+         "anchor five-seed crab")
+    scan = [float(r[3]) for r in rows if r[0] == "20260728"]
+    want(f"{min(scan):.5f}--{max(scan):.5f}", "anchor scan span")
 
 
 # --------------------------------------- Sec 5.4: multi-slice benchmark stats
