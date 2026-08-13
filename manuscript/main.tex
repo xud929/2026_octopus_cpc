@@ -78,16 +78,6 @@ GPU computing \sep accelerator physics \sep Julia
 \gdef\@pdfsubject{Computer Physics Communications submission}
 \makeatother
 
-\section*{Program summary}
-\noindent\textit{Program Title:} Octopus.jl\\
-\textit{CPC Library link to program files:} (to be added by Technical Editor)\\
-\textit{Developer's repository link:} \url{https://github.com/xud929/Octopus.jl} (commit \code{01e97c58afca})\\
-\textit{Licensing provisions:} MIT\\
-\textit{Programming language:} Julia, with an optional CUDA backend (CUDA.jl)\\
-\textit{Nature of problem:} Self-consistent multi-slice strong--strong beam--beam evolution of two colliding bunches in circular colliders, including coherent two-beam modes and mutual emittance growth.\\
-\textit{Solution method:} Synchro-beam multi-slice collision driver with four interchangeable transverse field solvers (soft-Gaussian closure, PIC, Gaussian-subtracted PIC, spectral) on CPU and CUDA, combined with six-dimensional weak--strong tracking.\\
-\textit{Additional comments including restrictions and unusual features:} The Gaussian-subtracted PIC solver is experimental (Table~\ref{tab:solver_capabilities}).  Typical running time: about 0.31~s per turn for $3.58\times10^6$ macroparticles and 15 slices on one NVIDIA RTX~4500 Ada GPU.
-
 %% ===================================================================
 \section{Introduction}
 \label{sec:intro}
