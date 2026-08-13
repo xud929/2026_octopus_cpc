@@ -1,0 +1,9 @@
+# Green-cache ablation, nominal production point (2.56M/1.024M,
+# 128^2, 15 slices, every-turn luminosity + two moment observers).
+# Protocol as data/gpu_walltime_table.tsv: 120 turns/process,
+# median over turns 21..120, mean +- sample SD over 3 process medians.
+# Octopus commit 800d74652a79c59fca89e0d612703ddda5fd47b7
+config	green_cache	min_ratio	growth	mean_s_per_turn	sd_s_per_turn	process_medians
+none	none	-	-	0.3912	0.0021	0.3905,0.3895,0.3936
+default	slice_pair	0.50	0.25	0.3248	0.0011	0.3241,0.3242,0.3261
+tight	slice_pair	0.95	0.05	0.5164	0.0069	0.5097,0.5235,0.5160

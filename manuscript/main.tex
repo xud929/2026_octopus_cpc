@@ -48,7 +48,7 @@ six-dimensional tracking whose common collision driver supports four
 transverse field models, from a soft-Gaussian closure to full
 particle-in-cell (PIC) solvers.  Two numerical developments address errors
 exposed by adaptive PIC:
-an assignment-consistent Gaussian/residual field split and node-indexed meshes
+a deposition-consistent Gaussian/residual field split and node-indexed meshes
 that remove the mesh-mismatch component of slice-boundary discontinuities.  An
 ensemble analysis separates mean-field bias from finite-particle fluctuation
 and shows that mesh refinement can reduce the former while increasing the
@@ -95,7 +95,7 @@ mutual emittance evolution.  The synchro-beam map of
 for multi-slice circular-collider studies
 \citep{OhmiTawadaEtAl2004,Stern2010,HerrPieloni2014,QiangBlaskiewicz2024}.
 Their cost nevertheless remains substantial: every turn couples many slice
-pairs, each requiring charge assignment, an open-boundary field solve, and
+pairs, each requiring charge deposition, an open-boundary field solve, and
 two particle gathers.
 
 Octopus is a Julia \citep{BezansonJulia2017} framework with a CUDA backend
@@ -109,7 +109,7 @@ adapts to each interacting pair.  Reduced beam--beam meshes
 interpolation \citep{OhmiTawadaOide2003,KabelCai2004} are established.  The
 numerical contributions here are narrower: an equal-weight full-$f$ field
 splitting in which a live Gaussian reference is projected analytically
-through the particle assignment operator, and the identification of a
+through the charge deposition operator, and the identification of a
 mesh-consistency failure when adjacent slice pairs construct adaptive
 transverse grids independently.  A node-indexed grid removes this
 mesh-mismatch term while retaining live-source evolution.  On the
@@ -290,12 +290,12 @@ can be run with four numerical models:
 
 \begin{itemize}
 \item \textbf{PIC} is the production model.  Cloud-in-cell (CIC) or
-triangular-shaped cloud (TSC) charge assignment is
+triangular-shaped cloud (TSC) charge deposition is
 followed by a zero-padded Hockney convolution for the open-boundary
 two-dimensional Poisson problem \citep{HockneyEastwood1988}.  The logarithmic
 Green function is integrated over each source cell
 \citep{QiangGreen2002,QiangIGF2006}; transverse fields are obtained with
-second- or fourth-order differences and gathered with the assignment
+second- or fourth-order differences and gathered with the deposition
 stencil.  Each slice pair uses a fixed $n_x\times n_y$ cell count over the
 particle bounding box plus 1.5 cells on each side (three cells total per
 axis).  By default, the first grid for each directed slice pair is enlarged
@@ -315,7 +315,7 @@ closure rather than a representation of distribution-shape evolution.
 uses the same full-$f$, equal-weight particles as PIC.  For each directed
 slice interaction, it recomputes a
 Gaussian reference $G_{\hat\theta}$, subtracts its analytically expected
-nodal assignment from the particle deposit, solves the residual, and adds
+nodal deposit from the particle deposit, solves the residual, and adds
 the analytic Gaussian field:
 \begin{equation}
   \mathbf K_h^{\rm GS}(\mathbf x)
@@ -327,7 +327,7 @@ the analytic Gaussian field:
   \label{eq:hybrid}
 \end{equation}
 Here ${\cal D}_h$, ${\cal P}_h$, and ${\cal I}_h$ denote unit-charge
-assignment, the mesh Poisson solve, and field gathering, and $f_{N_p}$ is the
+deposition, the mesh Poisson solve, and field gathering, and $f_{N_p}$ is the
 empirical density of the $N_p$ deposited source macroparticles; the
 implementation
 stores particle counts and applies the equivalent common normalization in the
@@ -445,7 +445,7 @@ constant potential slope within each slice.  A three-node option adds the
 slice midpoint and uses a quadratic interpolant.  On a common transverse
 grid, neighboring interpolants share the boundary value; for equal slice
 widths their mismatch decreases from first to third order in the width.
-TSC also makes charge assignment smoother under source drift than CIC.
+TSC also makes charge deposition smoother under source drift than CIC.
 In a frozen scan of an EIC-like flat beam (seven quantile slices, $64^2$
 mesh, $2\times10^5$ macroparticles), quadratic interpolation plus TSC
 reduced the largest normalized longitudinal-kick jump from $55\%$ to
@@ -546,13 +546,13 @@ $B_{256}=7.138\times10^{-5}$ exceeds the corresponding 95th percentile
 $6.589\times10^{-5}$.  Thus the pooled
 fine-grid bias is unresolved for the round source but resolved for the flat
 source.  Two grid sizes still establish neither a directional bound nor a
-convergence rate.  Resolution, assignment order, and particle count control
+convergence rate.  Resolution, deposition order, and particle count control
 different parts of the error budget.
 
 \begin{table}[pos=ht]
 \centering
 \caption{PIC error decomposition for $10^5$ macroparticles and CIC
-assignment.  Panel A gives means $\pm$ sample SD over 19 independent
+deposition.  Panel A gives means $\pm$ sample SD over 19 independent
 $R=100$ blocks; bootstrap 95\% intervals for the displayed ratios are
 [3.73, 4.33] and [6.19, 7.26], quantifying block-sampling variability of
 these floor-limited descriptive ratios, not the true bias reduction.
@@ -610,7 +610,7 @@ over the scan.  (a) Four frozen-source grid constructions and a node-indexed
 live-source control; each marker is one of two source slices at one of two
 central boundaries.  The ``node production'' values use the full scheduled
 node calculation.  (b) Frozen-source longitudinal
-jumps for four assignment/interpolation combinations.  Diamonds are the same
+jumps for four deposition/interpolation combinations.  Diamonds are the same
 four samples and horizontal bars mark their maxima.}
 \label{fig:bjump}
 \end{figure}
@@ -937,8 +937,7 @@ The wavefront then drives the whole CUDA pipeline.  Kernels access particles
 through slice index lists, without temporary gather/scatter copies; the four
 source-boundary charge and force planes of every pair in a $b$-pair
 wavefront are solved in one batched FFT stack of $4b$ planes; persistent
-workspaces and aspect-ratio-keyed Green
-functions avoid per-pair allocation and kernel construction.
+workspaces avoid per-pair allocation and kernel construction.
 Other high-volume operations follow the wavefront: fused two-level reductions
 set source and target bounds, both longitudinal planes are deposited together,
 and normalization, spectral multiplication, finite differences, and gathering
@@ -946,6 +945,49 @@ remain on the device.  Scheduling and data movement change, but both backends
 implement the same ordered collision algorithm.  Floating-point reduction
 order is backend-dependent, so agreement is tested with stated tolerances and
 is not claimed to be bitwise identity.
+
+The adaptive interaction domains make the Green function itself a recurring
+cost.  The open-boundary solve uses the shifted integrated Green function
+\citep{QiangGreen2002,QiangIGF2006} on a per-pair domain with a fixed cell
+count.  Collider parameters approach the hourglass regime ($\beta^*$
+comparable to $\sigma_z$), where head and tail slices are transversely wider
+than the waist; a single uniform grid sized for the widest pair would
+concentrate the core slices in a small fraction of the mesh, and the cell
+size sets the interpolation error exactly where most of the charge sits.
+Per-pair adaptive domains keep the cells matched to each interaction, but
+the Green-function FFT then depends on the domain and would otherwise be
+rebuilt for every directed pair on every turn.  Octopus therefore caches two
+Green FFTs per slice pair, one per kick direction, and reuses them while the
+pair's live domains still fit; a cached grid is declared too large once the
+requested width or height falls below the fraction
+\code{slice\_pair\_green\_min\_ratio} of the cached one, and
+\code{slice\_pair\_green\_growth} sets the fractional margin applied when an
+entry is (re)built.  Table~\ref{tab:greencache} isolates this cost at the
+nominal production point: rebuilding every pair costs 20\% over the default
+cache ($0.50$, $0.25$), which reuses entries across turns at the price of
+transiently up to twice-wider cells, while a near-exact setting ($0.95$,
+$0.05$) forfeits reuse --- the domains of breathing beams leave the
+tolerance band almost every encounter --- and its rebuild path is more
+expensive than building each Green function fresh.
+
+\begin{table}[pos=h]
+\centering
+\caption{Green-cache ablation at the nominal production point
+($3.58\times10^6$ macroparticles, $128^2$, 15 slices, observers as in
+Table~\ref{tab:performance}).  Entries are means $\pm$ sample SD over three
+process medians measured in one batch; the batch carries its own baseline,
+so the comparison is same-session.}
+\label{tab:greencache}
+\begin{tabular}{lccc}
+\toprule
+Green-function handling & min ratio & growth & median s/turn \\
+\midrule
+rebuilt for every pair        & --   & --   & $0.3912\pm0.0021$ \\
+slice-pair cache (default)    & 0.50 & 0.25 & $0.3248\pm0.0011$ \\
+slice-pair cache (near-exact) & 0.95 & 0.05 & $0.5164\pm0.0069$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \subsection{Benchmark and scaling}
 

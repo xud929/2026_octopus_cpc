@@ -5,7 +5,7 @@ six-dimensional tracking whose common collision driver supports four
 transverse field models, from a soft-Gaussian closure to full
 particle-in-cell (PIC) solvers.  Two numerical developments address errors
 exposed by adaptive PIC:
-an assignment-consistent Gaussian/residual field split and node-indexed meshes
+a deposition-consistent Gaussian/residual field split and node-indexed meshes
 that remove the mesh-mismatch component of slice-boundary discontinuities.  An
 ensemble analysis separates mean-field bias from finite-particle fluctuation
 and shows that mesh refinement can reduce the former while increasing the
