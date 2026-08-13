@@ -958,10 +958,10 @@ Per-pair adaptive domains keep the cells matched to each interaction, but
 the Green-function FFT then depends on the domain and would otherwise be
 rebuilt for every directed pair on every turn.  Octopus therefore caches two
 Green FFTs per slice pair, one per kick direction, and reuses them while the
-pair's live domains still fit; a cached grid is declared too large once the
-requested width or height falls below the fraction
-\code{slice\_pair\_green\_min\_ratio} of the cached one, and
-\code{slice\_pair\_green\_growth} sets the fractional margin applied when an
+pair's live domains still fit.  Two solver parameters control the cache: a
+minimum-ratio threshold declares a cached grid too large once the requested
+width or height falls below that fraction of the cached one, and a growth
+margin sets the fractional enlargement applied when an
 entry is (re)built.  The two parameters trade reuse against cell tightness:
 a small ratio and a generous margin keep entries alive across turns at the
 price of transiently wider cells, while values near the exact fit track the
