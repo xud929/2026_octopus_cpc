@@ -384,9 +384,15 @@ def check_timing():
                           "paper-cpc and commit as data/gpu_walltime_table.tsv")
         return
     # columns: config total_particles mesh processes mean sd process_medians
+    #          mean_of_process_means sd_of_process_means
     for r in read_tsv(path)[1:]:
         want(f"${float(r[4]):.4f}\\pm{float(r[5]):.4f}$",
              f"timing row {r[0]}")
+        if r[0] == "nominal":
+            want(f"${float(r[7]):.4f}\\pm{float(r[8]):.4f}$",
+                 "nominal process means")
+            want(f"{float(r[7]) * 1e5 / 3600:.2f} GPU-hours",
+                 "GPU-hour extrapolation from process mean")
 
 
 # ------------------------------------------------------- structural figure QA

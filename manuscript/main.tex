@@ -13,7 +13,7 @@
 
 \AtBeginDocument{\hypersetup{
   pdftitle={GPU-accelerated framework for multi-slice strong-strong beam-beam simulation},
-  pdfauthor={Derong Xu},
+  pdfauthor={Derong Xu and Yi-Kai Kan},
   pdfsubject={Computer Physics Communications submission}}}
 
 %% Convenience macros
@@ -23,11 +23,12 @@
 \begin{document}
 \let\WriteBookmarks\relax
 \shorttitle{Octopus strong--strong beam--beam framework}
-\shortauthors{D. Xu}
+\shortauthors{D. Xu and Y.-K. Kan}
 
 \title [mode = title]{GPU-accelerated framework for multi-slice strong--strong beam--beam simulation}
 \author[1]{Derong Xu}[orcid=0000-0003-0396-4166]
 \cormark[1]
+\cortext[1]{Corresponding author}
 \ead{dxu@bnl.gov}
 \credit{Conceptualization, Methodology, Software, Validation, Formal analysis, Writing -- original draft, Writing -- review \& editing}
 
@@ -72,10 +73,20 @@ GPU computing \sep accelerator physics \sep Julia
 \maketitle
 
 \makeatletter
-\gdef\@pdfauthor{Derong Xu}
+\gdef\@pdfauthor{Derong Xu and Yi-Kai Kan}
 \gdef\@pdftitle{GPU-accelerated framework for multi-slice strong-strong beam-beam simulation}
 \gdef\@pdfsubject{Computer Physics Communications submission}
 \makeatother
+
+\section*{Program summary}
+\noindent\textit{Program Title:} Octopus.jl\\
+\textit{CPC Library link to program files:} (to be added by Technical Editor)\\
+\textit{Developer's repository link:} \url{https://github.com/xud929/Octopus.jl} (commit \code{01e97c58afca})\\
+\textit{Licensing provisions:} MIT\\
+\textit{Programming language:} Julia, with an optional CUDA backend (CUDA.jl)\\
+\textit{Nature of problem:} Self-consistent multi-slice strong--strong beam--beam evolution of two colliding bunches in circular colliders, including coherent two-beam modes and mutual emittance growth.\\
+\textit{Solution method:} Synchro-beam multi-slice collision driver with four interchangeable transverse field solvers (soft-Gaussian closure, PIC, Gaussian-subtracted PIC, spectral) on CPU and CUDA, combined with six-dimensional weak--strong tracking.\\
+\textit{Additional comments including restrictions and unusual features:} The Gaussian-subtracted PIC solver is experimental (Table~\ref{tab:solver_capabilities}).  Typical running time: about 0.31~s per turn for $3.58\times10^6$ macroparticles and 15 slices on one NVIDIA RTX~4500 Ada GPU.
 
 %% ===================================================================
 \section{Introduction}
@@ -315,14 +326,16 @@ the analytic Gaussian field:
 \begin{equation}
   \mathbf K_h^{\rm GS}(\mathbf x)
   ={\cal I}_h{\cal P}_h\!\left[
-    {\cal D}_h f_N-\alpha_h{\cal D}_hG_{\hat\theta}\right](\mathbf x)
+    {\cal D}_h f_{N_p}-\alpha_h{\cal D}_hG_{\hat\theta}\right](\mathbf x)
    +\mathbf K_{\rm BE}(\mathbf x;G_{\hat\theta}),\qquad
-  \alpha_h=\frac{\sum_{ij}({\cal D}_h f_N)_{ij}}
+  \alpha_h=\frac{\sum_{ij}({\cal D}_h f_{N_p})_{ij}}
                   {\sum_{ij}({\cal D}_hG_{\hat\theta})_{ij}} .
   \label{eq:hybrid}
 \end{equation}
 Here ${\cal D}_h$, ${\cal P}_h$, and ${\cal I}_h$ denote unit-charge
-assignment, the mesh Poisson solve, and field gathering; the implementation
+assignment, the mesh Poisson solve, and field gathering, and $f_{N_p}$ is the
+empirical density of the $N_p$ deposited source macroparticles; the
+implementation
 stores particle counts and applies the equivalent common normalization in the
 kick scale.  The analytic add-back has unit charge and is not multiplied by
 $\alpha_h$.  Thus, even for an exact matching discrete operator,
@@ -415,11 +428,14 @@ may have been kicked.  The longitudinal kick is a difference of nearby
 potentials and requires correlated discretization error; each directed
 interaction therefore solves the left and right endpoints plus the right
 endpoint on the left-node mesh.  With the longitudinal kick enabled, the
-current implementation evaluates $3N$
-planes for $N$ directed interactions, versus $2N$ for pair-indexed grids.  A
-frozen-source construction has only $2N+1$ algebraically distinct node planes,
+current implementation evaluates $3N_{\rm int}$
+planes for $N_{\rm int}$ directed interactions, versus $2N_{\rm int}$ for
+pair-indexed grids.  A
+frozen-source construction has only $2N_{\rm int}+1$ algebraically distinct
+node planes,
 but a live source is kicked between uses, so reusing a plane would make the
-later field stale.  Thus $3N$ is required by the present self-consistent update
+later field stale.  Thus $3N_{\rm int}$ is required by the present
+self-consistent update
 order rather than merely being an unimplemented cache optimization.  Absent a
 demonstrated multi-turn benefit, the faster slice-pair grid remains the
 production default.  An
@@ -514,10 +530,12 @@ Table~\ref{tab:decomposition} first summarizes 19 independent blocks, each
 containing $R=100$ sources with $10^5$ macroparticles.  Changing CIC from
 $64^2$ to $256^2$ gives descriptive ratios of block-mean $B_h$ values of 4.02
 (round) and 6.70 (flat), while $S_h$ increases by $9.51\%$ and $18.47\%$.
-Per-block ratios of fine-grid $B_h$ to its own measured centered sign-flip
-floor span 0.71--1.45 (round) and 0.73--1.34 (flat): the $256^2$ bias sits at
-the sampling floor of its own estimator, so the block-level ratios are
-one-sided bounds.  Because the norm and spatial median are
+Per-block ratios of fine-grid $B_h$ to the median of its own centered
+sign-flip null distribution span 0.71--1.45 (round) and 0.73--1.34 (flat):
+the $256^2$ bias sits at the sampling floor of its own estimator, so the
+finite-$R$ floor inflates the measured $B_{256}$ and the descriptive ratios
+4.02 and 6.70 are lower bounds on the true $64^2\!\rightarrow\!256^2$ bias
+reduction.  Because the norm and spatial median are
 applied after each 100-source average, these block statistics contain a
 positive finite-$R$ magnitude floor.
 
@@ -528,10 +546,10 @@ finite-$R$ norm floor, exclusion of zero by this interval is not a zero-bias
 test.  The null comparison instead applies one Rademacher sign to each full
 realization vector, preserving dependence across field points.  For the round
 source,
-$B_{256}=3.453\times10^{-5}$ overlaps the sign-flip 95th percentile
+$B_{256}=3.453\times10^{-5}$ lies below the sign-flip null 95th percentile
 $3.952\times10^{-5}$.  For the flat source,
-$B_{256}=1.252\times10^{-4}$ exceeds the corresponding
-$6.459\times10^{-5}$ floor.  Thus the pooled
+$B_{256}=1.252\times10^{-4}$ exceeds the corresponding 95th percentile
+$6.459\times10^{-5}$.  Thus the pooled
 fine-grid bias is unresolved for the round source but resolved for the flat
 source.  Two grid sizes still establish neither a directional bound nor a
 convergence rate.  Resolution, assignment order, and particle count control
@@ -542,7 +560,9 @@ different parts of the error budget.
 \caption{PIC error decomposition for $10^5$ macroparticles and CIC
 assignment.  Panel A gives means $\pm$ sample SD over 19 independent
 $R=100$ blocks; bootstrap 95\% intervals for the displayed ratios are
-[3.73, 4.33] and [6.19, 7.26].  Panel B pools all $R=1900$ source fields;
+[3.73, 4.33] and [6.19, 7.26], quantifying block-sampling variability of
+these floor-limited descriptive ratios, not the true bias reduction.
+Panel B pools all $R=1900$ source fields;
 entries are in units of $10^{-4}$.  Delete-one-block 95\% intervals for
 round/flat $B_{256}$ are [0.248, 0.443]/[0.866, 1.638], and those for
 $S_{256}$ are [14.702, 15.054]/[29.863, 30.748], in the same units.}
@@ -679,7 +699,8 @@ $1.2144$ for round Gaussian beams
 
 At the stated $128^2$, $0.1\sigma$, 8192-turn setting, three PIC runs give
 $\Lambda=(1.1973\pm0.0035,1.2061\pm0.0004)$, where the uncertainties are seed
-scatter only.  One-at-a-time seed-matched changes quantify the larger numerical
+scatter only.  Figure~\ref{fig:coherent} shows the centroid spectra and the
+fitted $Q_\sigma$ and $Q_\pi$ for one representative seed.  One-at-a-time seed-matched changes quantify the larger numerical
 envelope: $128^2\!\rightarrow256^2$ shifts $(\Lambda_x,\Lambda_y)$ by
 $(+0.0040,+0.0034)$, $0.1\sigma\!\rightarrow0.025\sigma$ by
 $(+0.0071,+0.0055)$, and 8192 to 16384 turns by
@@ -779,10 +800,12 @@ comparison supports similar structure, not common mode identities.}
 \subsection{Crossing-angle and crab-cavity luminosity anchor}
 \label{sec:lumanchor}
 
-For equal frozen round Gaussians, 15 normal-quantile slices, and
+For equal frozen round Gaussians ($\sigma_x=\sigma_y=100\,\mu$m,
+$\sigma_z=2$~cm, $\beta^{*}=0.5$~m), 15 normal-quantile slices, and
 $2\times10^5$ macroparticles per beam, a half crossing angle of
-$12.5$~mrad gives Piwinski parameter $\phi=2.5$.  The analytic luminosity
-factor is $R=(1+\phi^2)^{-1/2}=0.371391$
+$\theta_c/2=12.5$~mrad gives Piwinski parameter
+$\phi=(\sigma_z/\sigma_x)\tan(\theta_c/2)=2.5$.  The analytic luminosity
+factor is $R_\phi=(1+\phi^2)^{-1/2}=0.371391$
 \citep{HerrMuratori2006}.  Five paired particle seeds give
 $L/L_0=0.371958\pm0.000257$ (sample standard deviation), while ideal crab
 cavities restore $L/L_0$ to $1.000002\pm0.000007$.  A one-seed scan over 1, 7,
@@ -797,12 +820,16 @@ absolute luminosity.
 
 The preceding tests isolate field and collective-mode behavior.  To exercise
 the complete multi-turn chain, we retain one historical Octopus and one
-historical BeamBeam3D run for a head-on, 15-slice collision at EIC design
-parameters \citep{EICCDR2021}: 10~GeV electrons
+historical BeamBeam3D run for a head-on, 15-slice collision at parameters
+adapted from the EIC design \citep{EICCDR2021}: 10~GeV electrons
 ($\xi_e=(0.088,0.100)$, $\beta^*=(0.55,0.056)$~m,
 $\sigma^*=(106,9.5)\,\mu$m) against 275~GeV protons
-($\xi_p=(0.0094,0.0094)$), a $128^2$ mesh, $10^5$ macroparticles per beam,
-and 8192 turns.  The electron damping times are shortened from
+($\xi_p=(0.0094,0.0094)$, $\beta^*=(0.80,0.072)$~m,
+$\sigma^*=(95,8.5)\,\mu$m), a $128^2$ mesh, $10^5$ macroparticles per beam,
+and 8192 turns.  The proton side uses the design optics; the electron side
+departs from it ($\beta^*_x=0.55$ versus $0.45$~m, $\epsilon_y=1.61$ versus
+$1.3$~nm), so the spot sizes are unequal and $\xi_{e,x}$ and $\xi_p$ differ
+from the design values $\xi_e=(0.072,0.10)$, $\xi_p=(0.012,0.012)$.  The electron damping times are shortened from
 $(4000,4000,2000)$ to $(400,400,200)$ turns in $(x,y,z)$ so that the run
 approaches an equilibrium; the proton remains undamped.  Octopus uses
 electron/proton populations $1.7203\times10^{11}$/$0.6881\times10^{11}$,
@@ -941,8 +968,8 @@ $0.4786\pm0.0093$ \\
 At the nominal point, five process means give $0.3129\pm0.0071$~s/turn;
 the mean of the corresponding process medians is
 $0.3067\pm0.0070$~s/turn.
-Multiplying this measured mean by $10^5$ gives an arithmetic extrapolation of
-8.52 GPU-hours.  The robust process-median scaling values are 0.2048 and
+Multiplying the process-mean $0.3129$~s/turn by $10^5$ gives an arithmetic
+extrapolation of 8.69 GPU-hours.  The robust process-median scaling values are 0.2048 and
 0.4786~s/turn when both particle populations are halved or doubled, and
 0.2612 and 0.5106~s/turn for nominal $64^2$ and $256^2$ meshes
 (Table~\ref{tab:performance}).
@@ -951,11 +978,16 @@ measurements but showed zero GPU utilization.  The results are elapsed times
 on one shared-host device, not a multi-architecture performance model.
 They are also conservative with respect to data-center hardware: the
 weak--strong companion case at $1.02\times10^6$ macroparticles, with the
-same every-turn luminosity and moment output, measures 3.9~ms/turn on an
-NVIDIA A100 against about 105~ms/turn on this device, a gap dominated by
-the A100's full-rate FP64 units.  The same FP64-rate advantage applies to
-the kernel-dominated strong--strong phases and places the nominal case
-well below 0.2~s/turn on an A100-class GPU.
+same every-turn luminosity and moment output, measured 3.9~ms/turn on an
+NVIDIA A100 against about 105~ms/turn on this device (the timing record is
+archived in \code{docs/history/weak\_strong\_cuda\_luminosity\_2026\_08\_11.md}
+at the cited source commit), a gap that largely reflects the A100's FP64
+pipeline running at 1:2 of its FP32 rate, versus 1:64 on this
+workstation-class GPU, with the A100's higher memory bandwidth also
+contributing.  If the same FP64-throughput advantage carries over to the
+kernel-dominated strong--strong phases, the nominal case projects to well
+below 0.2~s/turn on an A100-class GPU; this is a projection from the
+measured weak--strong pair, not a measurement.
 
 \section{Summary}
 \label{sec:summary}
@@ -989,7 +1021,18 @@ Octopus is released under the MIT license at
 source state evaluated for this manuscript is commit
 \href{https://github.com/xud929/Octopus.jl/commit/01e97c58afcacec46a337284c2799a1571dccb23}
 {\code{01e97c58afca}}
-(\code{v0.1.11-423-g01e97c5}, branch \code{paper-cpc}).  BeamBeam3D is cited at the unmodified independent
+(\code{v0.1.11-423-g01e97c5}, branch \code{paper-cpc}).
+Octopus requires Julia 1.12; the CUDA backend uses CUDA.jl 6.2, with FFTW,
+HDF5/JLD2, and SpecialFunctions as the remaining core dependencies, resolved
+by the committed project environment (\code{julia --project=.}).  A
+simulation constructs the two beams and lattice maps and selects the field
+model by passing one of the four solver objects
+(\code{PICPoissonSolver}, \code{GaussianPoissonSolver},
+\code{SpectralPoissonSolver}, \code{GaussianPICPoissonSolver}) to the
+collision element; all four implement the shared \code{collide!} interface,
+and \code{test/examples/strong\_strong\_tracking.jl} is the worked
+strong--strong example.  The unit and regression test suite runs with
+\code{julia --project=. -e 'using Pkg; Pkg.test()'}.  BeamBeam3D is cited at the unmodified independent
 source commit used for the source-pinned comparisons
 \citep{BeamBeam3DSoftware2024}.  The
 Gaussian-subtracted configuration evaluated here is specified in
@@ -1008,15 +1051,15 @@ historical curves.
 \section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
 
 Claude (Anthropic) and Codex (OpenAI) assisted with derivations,
-implementation, tests, numerical analysis, and editing.  The author checked
+implementation, tests, numerical analysis, and editing.  The authors checked
 derivations against limiting cases and source conventions, required executable
 tests for code changes, recomputed reported values from archived data, and made
-all scientific decisions.  The author takes full responsibility for the
+all scientific decisions.  The authors take full responsibility for the
 software, analysis, and manuscript.
 
 \section*{Declaration of competing interest}
 
-The author declares no competing financial interests or personal
+The authors declare no competing financial interests or personal
 relationships that could have appeared to influence the work reported in
 this paper.
 
@@ -1024,12 +1067,12 @@ this paper.
 
 \section*{Acknowledgments}
 
-The author thanks the BeamBeam3D authors for making their code publicly
+The authors thank the BeamBeam3D authors for making their code publicly
 available, which enabled the cross-code comparison of
 Section~\ref{sec:bb3d}.  Work supported by Brookhaven Science Associates,
 LLC under Contract No.\ DE-SC0012704 with the U.S. Department of Energy.
 The sponsor's role was limited to financial and institutional support; the
-author retained responsibility for study design, data collection, analysis
+authors retained responsibility for study design, data collection, analysis
 and interpretation, manuscript preparation, and the decision to submit.
 
 \bibliographystyle{model1-num-names}
