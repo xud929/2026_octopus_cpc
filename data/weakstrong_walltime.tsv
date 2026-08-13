@@ -4,7 +4,7 @@
 # (NVIDIA RTX 4500 Ada), Octopus paper-cpc 800d74652a79c59fca89e0d612703ddda5fd47b7.
 # Five 100-turn windows after a 21-turn warm-up; entry = window mean, ms/turn.
 # The A100 companion value (3.9 ms/turn, same case shape) is the owner's
-# measurement on the production machine, 2026-08-12.
+# measurement on the NERSC Perlmutter system, 2026-08-12.
 window	mean_ms_per_turn
 1	38.064
 2	37.402
