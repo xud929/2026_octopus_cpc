@@ -211,10 +211,9 @@ Gaussian heat-equation identity is essential to this analytic form; PIC and
 spectral routes obtain the corresponding longitudinal kick from numerical
 potential differences.  In
 principal axes Eq.~\eqref{eq:dpz} splits into centroid, principal-size, and
-\emph{principal-axis rotation} contributions; the rotation term is
-easily
-omitted by models that rotate coordinates and forces correctly but treat the
-tilt as frozen.  Eight analytic limits and the 6D symplecticity of the composed
+\emph{principal-axis rotation} contributions; the rotation term vanishes
+only for a frozen tilt, so a model that rotates coordinates and forces
+correctly but holds the tilt fixed omits it.  Eight analytic limits and the 6D symplecticity of the composed
 map are tested in Section~\ref{sec:validation}.
 
 \subsection{Source models and longitudinal slicing}
@@ -242,7 +241,7 @@ collision-time order, and the transverse kick, together with the longitudinal
 kick obtained from analytic moments or potential differences, is applied to
 both beams.  In the PIC path the field of a source slice is solved at
 slice-boundary nodes and interpolated linearly (default) or quadratically in
-$z$; the Gaussian-subtracted and spectral paths currently use linear
+$z$; the Gaussian-subtracted and spectral paths use linear
 interpolation, whereas soft-Gaussian evaluates each particle directly.  In
 all cases the transverse evaluation point is drift-transported to its
 collision point.  Endpoint interpolation assumes that both sides of a slice
@@ -912,8 +911,9 @@ remain outside the present study.
 
 The multi-slice collision schedule is sequential per slice: each encounter
 modifies both participating slices, so a slice's later encounters depend on
-its earlier ones, and one slice pair at a time cannot fill a modern GPU ---
-a single $128^2$ deposit/solve/gather leaves most of the device idle.
+its earlier ones, and one slice pair at a time exposes too little
+parallelism for the device: a single $128^2$ deposit/solve/gather leaves
+most of it idle.
 Octopus extracts the concurrency that the physics does permit.  Each pair
 $(i,j)$ is assigned the collision time implied by its slice centers,
 $t_{ij}\propto-(z^{(1)}_i+z^{(2)}_j)$ with both coordinates positive toward
