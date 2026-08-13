@@ -927,8 +927,11 @@ the sequential collision physics --- exactly; batching changes only the
 floating-point reduction order.  For $n$ equal-count slices per beam the
 schedule is the $2n-1$ anti-diagonals of the $n\times n$ interaction matrix:
 the production 15-slice case runs its 225 pairs in 29 wavefronts of up to 15
-concurrent pairs.  We are not aware of another beam--beam code that
-schedules slice pairs this way.
+concurrent pairs.  In the parallel PIC implementation of
+\citet{Qiang2004BeamBeam3D}, parallelism comes from distributing particles
+and field domains across processes while slice pairs advance in
+collision-time order; the wavefront schedule is complementary, exposing the
+concurrency between dependency-free pairs within the schedule itself.
 
 The wavefront then drives the whole CUDA pipeline.  Kernels access particles
 through slice index lists, without temporary gather/scatter copies; the four
