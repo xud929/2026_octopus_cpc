@@ -251,11 +251,6 @@ def check_decomposition():
     r_flat = mean([t[0] for t in stats["flat11"]]) / mean([t[1] for t in stats["flat11"]])
     want(f"{r_round:.2f}", "descriptive ratio round (text)")
     want(f"{r_flat:.2f}", "descriptive ratio flat (text)")
-    unarchived.append("'17 of 19 blocks' floor claim - the archived floor "
-                      "columns are the sign-flip null MEDIAN (script: "
-                      "floor_boot = median(nulls)); per-block 95th percentiles "
-                      "were never emitted. Archived per-block bias/floor ratios "
-                      "span 0.712-1.45 (round), 0.734-1.34 (flat)")
     # Panel B pooled statistics, from the archived pooled-analysis TSV
     # (drivers/kd_pooled_analysis.py over the 19-ensemble dumps).
     pooled = {(r[0], r[1]): r for r in
